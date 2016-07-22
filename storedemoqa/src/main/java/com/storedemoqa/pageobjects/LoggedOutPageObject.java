@@ -7,21 +7,22 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
-public class LoggedOutPageObject {
+public class LoggedOutPageObject extends PageFooter {
 
-	@FindBy(xpath = ".//p[contains(text(),'You are now logged out')]")
-	WebElement loggedOutText;
-	WebDriver driver;
-	Wait<WebDriver> wait;
+  @FindBy(xpath = ".//p[contains(text(),'You are now logged out')]")
+  WebElement loggedOutText;
+  WebDriver driver;
+  Wait<WebDriver> wait;
 
-	public LoggedOutPageObject(WebDriver driver, Wait<WebDriver> wait) {
-		this.driver = driver;
-		this.wait = wait;
-		PageFactory.initElements(driver, this);
-	}
+  public LoggedOutPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
+    super(driver, wait);
+    this.driver = driver;
+    this.wait = wait;
+    PageFactory.initElements(driver, this);
+  }
 
-	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(loggedOutText));
+  public void verifyPageLoaded() {
+    wait.until(ExpectedConditions.visibilityOf(loggedOutText));
 
-	}
+  }
 }

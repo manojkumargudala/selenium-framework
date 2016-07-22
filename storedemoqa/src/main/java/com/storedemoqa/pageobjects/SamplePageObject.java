@@ -7,24 +7,24 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
-public class SamplePageObject {
-	@FindBy(xpath = ".//h1[text()='Sample Page']")
-	WebElement samplePageHeader;
-	WebDriver driver;
-	Wait<WebDriver> wait;
-	PageFooter pageFooter;
+public class SamplePageObject extends PageFooter {
+  @FindBy(xpath = ".//h1[text()='Sample Page']")
+  WebElement samplePageHeader;
+  WebDriver driver;
+  Wait<WebDriver> wait;
+  PageFooter pageFooter;
 
-	public SamplePageObject(WebDriver driver, Wait<WebDriver> wait, PageFooter pageFooter) {
-		this.driver = driver;
-		this.wait = wait;
-		this.pageFooter = pageFooter;
-		PageFactory.initElements(driver, this);
+  public SamplePageObject(final WebDriver driver, final Wait<WebDriver> wait) {
+    super(driver, wait);
+    this.driver = driver;
+    this.wait = wait;
+    PageFactory.initElements(driver, this);
 
-	}
+  }
 
-	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(samplePageHeader));
+  public void verifyPageLoaded() {
+    wait.until(ExpectedConditions.visibilityOf(samplePageHeader));
 
-	}
+  }
 
 }

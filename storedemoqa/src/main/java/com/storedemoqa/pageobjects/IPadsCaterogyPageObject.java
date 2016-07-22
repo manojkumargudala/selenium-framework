@@ -7,44 +7,30 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
-public class IPadsCaterogyPageObject {
-	WebDriver driver;
-	Wait<WebDriver> wait;
-	PageFooter pageFooter;
+public class IPadsCaterogyPageObject extends PageFooter {
+  WebDriver driver;
+  Wait<WebDriver> wait;
 
-	public IPadsCaterogyPageObject(WebDriver driver, Wait<WebDriver> wait, PageFooter pageFooter) {
-		this.driver = driver;
-		this.wait = wait;
-		this.pageFooter = pageFooter;
-		PageFactory.initElements(driver, this);
-	}
+  public IPadsCaterogyPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
+    super(driver, wait);
+    this.driver = driver;
+    this.wait = wait;
+    PageFactory.initElements(driver, this);
+  }
 
-	@FindBy(xpath = ".//a[text()='Magic Mouse']")
-	WebElement magicMouse;
+  @FindBy(xpath = ".//a[text()='Magic Mouse']")
+  WebElement magicMouse;
 
-	@FindBy(xpath = ".//input[@value='Add To Cart'][@type='submit']")
-	WebElement addToCard;
+  @FindBy(xpath = ".//input[@value='Add To Cart'][@type='submit']")
+  WebElement addToCard;
 
-	@FindBy(xpath = ".//h1[text()='iPads']")
-	WebElement iPads;
+  @FindBy(xpath = ".//h1[text()='iPads']")
+  WebElement iPads;
 
-	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(iPads));
-		wait.until(ExpectedConditions.visibilityOf(addToCard));
+  public void verifyPageLoaded() {
+    wait.until(ExpectedConditions.visibilityOf(iPads));
+    wait.until(ExpectedConditions.visibilityOf(addToCard));
 
-	}
+  }
 
-	public void clickSpHomeLink() {
-		pageFooter.sPHome.click();
-	}
-
-	public SamplePageObject clickSamplePageLink() {
-		SamplePageObject samplePageOject = new SamplePageObject(driver, wait, pageFooter);
-		pageFooter.samplePage.click();
-		return samplePageOject;
-	}
-
-	public void clickYourAccountLink() {
-		pageFooter.yourAccount.click();
-	}
 }

@@ -1,40 +1,39 @@
 package com.demoqa.exceldtos;
 
 public class EmployeeLogin {
-	private String employeeLogin;
-	private String employeedPassword;
-	private Boolean isValidUser;
+  private String employeeLogin;
+  private String employeedPassword;
+  private Boolean isValidUser;
 
-	// Change
-	public String getEmployeeLogin() {
-		return employeeLogin;
-	}
+  public String getEmployeeLogin() {
+    return employeeLogin;
+  }
 
-	public void setEmployeeLogin(final String employeeLogin) {
-		this.employeeLogin = employeeLogin;
-	}
+  public void setEmployeeLogin(final String employeeLogin) {
+    this.employeeLogin = employeeLogin;
+  }
 
-	public String getEmployeedPassword() {
-		return employeedPassword;
-	}
+  public String getEmployeedPassword() {
+    return employeedPassword;
+  }
 
-	public void setEmployeedPassword(final String employeedPassword) {
-		this.employeedPassword = employeedPassword;
-	}
+  public void setEmployeedPassword(final String employeedPassword) {
+    this.employeedPassword = employeedPassword;
+  }
 
-	public Boolean getIsValidUser() {
-		return isValidUser;
-	}
+  public Boolean getIsValidUser() {
+    return isValidUser;
+  }
 
-	public void setIsValidUser(String isValidUser) {
-		if (isValidUser.equalsIgnoreCase("YES"))
-			this.isValidUser = true;
-		else
-			this.isValidUser = false;
-	}
+  public void setIsValidUser(final String isValidUser) {
+    if (isValidUser.equalsIgnoreCase("YES"))
+      this.isValidUser = true;
+    else
+      this.isValidUser = false;
+  }
 
-	@Override
-	public String toString() {
-		return "logged in emp user name " + employeeLogin;
-	}
+  @Override
+  public String toString() {
+    return "logged in emp user name " + employeeLogin;
+  }
 }
