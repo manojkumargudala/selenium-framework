@@ -19,38 +19,43 @@ import com.demoqa.utils.SeleniumActions;
 import com.demoqa.webdriver.SeleniumDriverObj;
 import com.demoqa.webdriver.SeleniumDriverObjImpl;
 
-@Listeners(value = { com.demoqa.listeners.MyTestngListener.class, com.demoqa.listeners.ExtentReporterNG.class })
+import ru.yandex.qatools.allure.annotations.Step;
+
+@Listeners(value = {com.demoqa.listeners.MyTestngListener.class,
+    com.demoqa.listeners.ExtentReporterNG.class})
 public class BaseDriverInitilization {
-	protected WebDriver driver;
-	protected ReadPropertyData readProp;
-	protected Wait<WebDriver> wait;
+  protected WebDriver driver;
+  protected ReadPropertyData readProp;
+  protected Wait<WebDriver> wait;
 
-	@BeforeMethod
-	public void myBaseDriverInitilization() {
-		readProp = new ReadPropertyDataImpl("demoqaprops.properties");
-		// readProp = new ReadPropertyDataImpl("demoqaprops.properties");
-		SeleniumDriverObj selObj = new SeleniumDriverObjImpl();
-		System.out.println("browser name " + readProp.readProperty("browser"));
-		driver = selObj.getDriver(readProp.readProperty("browser"));
-		wait = new FluentWait<WebDriver>(driver).withTimeout(20, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS)
-				.ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
-	}
+  @BeforeMethod
+  public void myBaseDriverInitilization() {
+    readProp = new ReadPropertyDataImpl("demoqaprops.properties");
+    // readProp = new ReadPropertyDataImpl("demoqaprops.properties");
+    SeleniumDriverObj selObj = new SeleniumDriverObjImpl();
+    System.out.println("browser name " + readProp.readProperty("browser"));
+    driver = selObj.getDriver(readProp.readProperty("browser"));
+    wait = new FluentWait<WebDriver>(driver).withTimeout(20, TimeUnit.SECONDS)
+        .pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
+        .ignoring(StaleElementReferenceException.class);
+  }
 
-	@AfterMethod
-	public void takeScreenShot(final ITestResult result) {
-		if (ITestResult.FAILURE == result.getStatus()) {
-			String screenshotName = DataUtils.getRandomCaptureFullFileName(result.getName());
-			result.setAttribute("screenShotFileName", screenshotName);
-			screenshotName = "./" + screenshotName;
-			SeleniumActions.captureScreenshot(driver, screenshotName);
-		}
-		driver.close();
-		driver.quit();
-	}
+  @Step("Test case failed click here to see screenshot")
+  @AfterMethod
+  public void takeScreenShot(final ITestResult result) {
+    if (ITestResult.FAILURE == result.getStatus()) {
+      String screenshotName = DataUtils.getRandomCaptureFullFileName(result.getName());
+      result.setAttribute("screenShotFileName", screenshotName);
+      screenshotName = "./" + screenshotName;
+      SeleniumActions.captureScreenshot(driver, screenshotName);
+    }
+    driver.close();
+    driver.quit();
+  }
 
-	// @AfterMethod
-	// public void closeDriver() {
-	// driver.close();
-	// driver.quit();
-	// }
+  // @AfterMethod
+  // public void closeDriver() {
+  // driver.close();
+  // driver.quit();
+  // }
 }
