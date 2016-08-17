@@ -11,6 +11,7 @@ import com.storedemoqa.pageobjects.IPhonesCaterogyPageObject;
 import com.storedemoqa.pageobjects.IPodsCaterogyPageObject;
 import com.storedemoqa.pageobjects.ImacsCaterogyPageObject;
 import com.storedemoqa.pageobjects.ProductCaterogyPageObject;
+import com.storedemoqa.pageobjects.RegisterationPageObject;
 import com.storedemoqa.pageobjects.SamplePageObject;
 import com.storedemoqa.pageobjects.YourAccountPageObject;
 
@@ -27,11 +28,12 @@ public class BaseTestCase extends BaseDriverInitilization {
     driver.get(readProp.readProperty("baseurl"));
     YourAccountPageObject yourAccountPageObject = homePageObject.clickMyAccount();
     yourAccountPageObject.verifyPageLoaded();
-    yourAccountPageObject.clickRegisterLink();
+    RegisterationPageObject registrationPageObj = yourAccountPageObject.clickRegisterLink();
+    registrationPageObj.verifyPageLoaded();
   }
 
   // Test case 9
-  @Test
+  @Test(enabled = false)
   public void checkCategories() {
     driver.get(readProp.readProperty("baseurl"));
     ImacsCaterogyPageObject imacsCaterogyPageObject = homePageObject.goToImacsCategory();
@@ -48,7 +50,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   }
 
   // Test case 8
-  @Test
+  @Test(enabled = false)
   public void goToCheckOutPage() {
     driver.get(readProp.readProperty("baseurl"));
     ImacsCaterogyPageObject imacsCaterogyPageObject = homePageObject.goToImacsCategory();
@@ -59,7 +61,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   }
 
   // Test case 10
-  @Test
+  @Test(enabled = false)
   public void goToProductDetailsCheckoutPage() {
     driver.get(readProp.readProperty("baseurl"));
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();
@@ -69,7 +71,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   }
 
   // Test case 11
-  @Test
+  @Test(enabled = false)
   public void verifyItemsAddedToCartPage() {
     driver.get(readProp.readProperty("baseurl"));
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();
@@ -82,7 +84,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   }
 
   // Test case 12 -- Part A verify SPHOME links
-  @Test
+  @Test(enabled = false)
   public void verifyPageFooterLinks() {
     driver.get(readProp.readProperty("baseurl"));
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();
@@ -103,7 +105,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   }
 
   // Test case 12 -- Part B verify Sample Page links
-  @Test
+  @Test(enabled = false)
   public void verifySamplePageLinks() {
     driver.get(readProp.readProperty("baseurl"));
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();

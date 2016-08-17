@@ -8,8 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
 public class PageFooter extends PageHeader {
-  WebDriver driver;
-  Wait<WebDriver> wait;
   @FindBy(xpath = ".//a[text()='SP Home']")
   WebElement spHome;
   @FindBy(xpath = ".//a[text()='Sample Page']")
@@ -18,8 +16,7 @@ public class PageFooter extends PageHeader {
   WebElement yourAccount;
 
   public PageFooter(final WebDriver driver, final Wait<WebDriver> wait) {
-    this.driver = driver;
-    this.wait = wait;
+    super(driver, wait);
     PageFactory.initElements(driver, this);
   }
 

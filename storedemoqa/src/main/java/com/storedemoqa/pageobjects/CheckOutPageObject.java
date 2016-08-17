@@ -7,14 +7,12 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
+import ru.yandex.qatools.allure.annotations.Step;
+
 public class CheckOutPageObject extends PageFooter {
-  WebDriver driver;
-  Wait<WebDriver> wait;
 
   public CheckOutPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
     super(driver, wait);
-    this.driver = driver;
-    this.wait = wait;
     PageFactory.initElements(driver, this);
   }
 
@@ -26,6 +24,7 @@ public class CheckOutPageObject extends PageFooter {
   @FindBy(xpath = ".//input[@value='Remove'][@type='submit']")
   WebElement removeFromCart;
 
+  @Step("Verify Magic mouse is added To Cart")
   public void verifyMagicMouseAddedToCart() {
     wait.until(ExpectedConditions.visibilityOf(magicMouse));
     wait.until(ExpectedConditions.visibilityOf(removeFromCart));

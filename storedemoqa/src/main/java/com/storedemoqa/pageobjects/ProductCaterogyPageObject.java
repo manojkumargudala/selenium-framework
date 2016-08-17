@@ -8,13 +8,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
 public class ProductCaterogyPageObject extends PageFooter {
-  WebDriver driver;
-  Wait<WebDriver> wait;
 
   public ProductCaterogyPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
     super(driver, wait);
-    this.driver = driver;
-    this.wait = wait;
     PageFactory.initElements(driver, this);
   }
 

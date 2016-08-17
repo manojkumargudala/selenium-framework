@@ -22,8 +22,10 @@ public class HomePageTestCase extends BaseDriverInitilization {
     homePageObject = new HomePageObject(driver, wait);
   }
 
+
+
   // Test case 4
-  @Test(dataProvider = "data-source")
+  @Test(dataProvider = "data-source", enabled = false)
   public void purchaseHistory(final EmployeeLogin emp) {
     System.out.println("in side the test case");
     System.out.println(emp.getEmployeedPassword());
@@ -43,7 +45,7 @@ public class HomePageTestCase extends BaseDriverInitilization {
   }
 
   // Test case 6
-  @Test(dataProvider = "data-source")
+  @Test(dataProvider = "data-source", enabled = false)
   public void yourDetails(final EmployeeLogin emp) {
     System.out.println("in side the test case");
     System.out.println(emp.getEmployeedPassword());
@@ -63,7 +65,7 @@ public class HomePageTestCase extends BaseDriverInitilization {
   }
 
   // Test case 5
-  @Test(dataProvider = "data-source")
+  @Test(dataProvider = "data-source", enabled = false)
   public void yourDownloadsTab(final EmployeeLogin emp) {
     System.out.println("in side the test case");
     System.out.println(emp.getEmployeedPassword());

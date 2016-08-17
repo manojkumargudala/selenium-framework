@@ -23,7 +23,7 @@ public class LoginTest extends BaseDriverInitilization {
   }
 
   // Test Case 2
-  @Test(dataProvider = "data-source")
+  @Test(dataProvider = "data-source", enabled = false)
   public void loginTestCase(final EmployeeLogin emp) {
     System.out.println("in side the test case");
     System.out.println(emp.getEmployeedPassword());
@@ -43,7 +43,7 @@ public class LoginTest extends BaseDriverInitilization {
   }
 
   // Test Case 7
-  @Test(dataProvider = "data-source")
+  @Test(dataProvider = "data-source", enabled = false)
   public void loggedFromPopMenu(final EmployeeLogin emp) {
     System.out.println("in side the test case");
     System.out.println(emp.getEmployeedPassword());

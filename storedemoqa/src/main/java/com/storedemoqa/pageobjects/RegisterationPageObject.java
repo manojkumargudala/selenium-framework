@@ -4,23 +4,32 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
 
-public class RegisterationPageObject {
+import ru.yandex.qatools.allure.annotations.Step;
 
-	@FindBy(xpath = ".//*[@id='user_login']")
-	public WebElement userLogin;
-	@FindBy(xpath = ".//*[@id='user_email']")
-	WebElement userEmail;
-	@FindBy(linkText = "Register")
-	WebElement linkTest;
-	@FindBy(partialLinkText = "")
-	WebElement partialLinkTextRegister;
+public class RegisterationPageObject extends PageFooter {
 
-	WebDriver driver;
+  @FindBy(xpath = ".//*[@id='user_login']")
+  public WebElement userLogin;
+  @FindBy(xpath = ".//*[@id='user_email']")
+  WebElement userEmail;
+  @FindBy(linkText = "Register")
+  WebElement linkTest;
+  @FindBy(partialLinkText = "")
+  WebElement partialLinkTextRegister;
 
-	public RegisterationPageObject(WebDriver driver) {
-		this.driver = driver;
-		PageFactory.initElements(driver, this);
-	}
+  public RegisterationPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
+    super(driver, wait);
+    PageFactory.initElements(driver, this);
+  }
 
+  @Step("Verify My account page is loaded")
+  public void verifyPageLoaded() {
+    wait.until(ExpectedConditions.visibilityOf(userLogin));
+    wait.until(ExpectedConditions.visibilityOf(userEmail));
+    wait.until(ExpectedConditions.visibilityOf(linkTest));
+    wait.until(ExpectedConditions.visibilityOf(partialLinkTextRegister));
+  }
 }

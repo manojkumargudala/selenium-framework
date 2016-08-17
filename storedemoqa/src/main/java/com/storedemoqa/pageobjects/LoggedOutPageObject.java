@@ -11,13 +11,9 @@ public class LoggedOutPageObject extends PageFooter {
 
   @FindBy(xpath = ".//p[contains(text(),'You are now logged out')]")
   WebElement loggedOutText;
-  WebDriver driver;
-  Wait<WebDriver> wait;
 
   public LoggedOutPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
     super(driver, wait);
-    this.driver = driver;
-    this.wait = wait;
     PageFactory.initElements(driver, this);
   }
 

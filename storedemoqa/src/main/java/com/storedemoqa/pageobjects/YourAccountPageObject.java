@@ -8,6 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
+import ru.yandex.qatools.allure.annotations.Step;
+
 public class YourAccountPageObject extends PageFooter {
   @FindBy(xpath = ".//*[@id='meta']/ul/li[1]/a")
   public WebElement registerLink;
@@ -23,18 +25,15 @@ public class YourAccountPageObject extends PageFooter {
   WebElement pwdinputText;
   @FindBy(xpath = ".//input[@id='login'][@type='submit']")
   WebElement loginButton;
-  WebDriver driver;
-  Wait<WebDriver> wait;
   @FindBy(xpath = ".//p[contains(text(),'Invalid login credentials')]")
   WebElement invalidCredentials;
 
   public YourAccountPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
     super(driver, wait);
-    this.driver = driver;
-    this.wait = wait;
     PageFactory.initElements(driver, this);
   }
 
+  @Step("Verify My account page is loaded")
   public void verifyPageLoaded() {
     wait.until(ExpectedConditions.visibilityOf(registerLink));
     wait.until(ExpectedConditions.visibilityOf(loginputText));
@@ -43,7 +42,7 @@ public class YourAccountPageObject extends PageFooter {
   }
 
   public RegisterationPageObject clickRegisterLink() {
-    RegisterationPageObject registerPageObject = new RegisterationPageObject(driver);
+    RegisterationPageObject registerPageObject = new RegisterationPageObject(driver, wait);
     registerLink.click();
     return registerPageObject;
   }

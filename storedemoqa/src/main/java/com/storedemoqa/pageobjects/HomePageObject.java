@@ -8,11 +8,11 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
 
+import ru.yandex.qatools.allure.annotations.Step;
+
 public class HomePageObject extends PageFooter {
   @FindBy(xpath = ".//a[text()='My Account']")
   public WebElement myAccount;
-  WebDriver driver;
-  Wait<WebDriver> wait;
   @FindBy(xpath = ".//a[text()='Product Category']")
   WebElement productCatergoy;
   @FindBy(xpath = ".//a[text()='All Product']")
@@ -32,11 +32,10 @@ public class HomePageObject extends PageFooter {
 
   public HomePageObject(final WebDriver driver, final Wait<WebDriver> wait) {
     super(driver, wait);
-    this.driver = driver;
-    this.wait = wait;
     PageFactory.initElements(driver, this);
   }
 
+  @Step("Click on my Account")
   public YourAccountPageObject clickMyAccount() {
     YourAccountPageObject yourAccountPageObject = new YourAccountPageObject(driver, wait);
     wait.until(ExpectedConditions.elementToBeClickable(myAccount));
