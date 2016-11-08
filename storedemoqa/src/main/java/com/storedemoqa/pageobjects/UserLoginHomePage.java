@@ -29,7 +29,6 @@ public class UserLoginHomePage extends PageFooter {
   WebElement logoutFromPopUp;
 
   public UserLoginHomePage(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
     PageFactory.initElements(driver, this);
 
   }

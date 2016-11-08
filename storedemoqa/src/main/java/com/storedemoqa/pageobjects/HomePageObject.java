@@ -1,12 +1,10 @@
 package com.storedemoqa.pageobjects;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -30,8 +28,7 @@ public class HomePageObject extends PageFooter {
   @FindBy(xpath = ".//a[text()='Checkout']")
   WebElement checkoutFromHome;
 
-  public HomePageObject(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
+  public HomePageObject() {
     PageFactory.initElements(driver, this);
   }
 

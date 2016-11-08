@@ -13,6 +13,8 @@ import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 
+import com.demoqa.utils.BaseFrameWorkInitializer;
+import com.demoqa.utils.DataUtils;
 import com.demoqa.utils.SendEmail;
 
 public class MyTestngListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
@@ -35,7 +37,7 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
     Reporter.log("About to end executing Suite " + arg0.getName(), true);
     // write send email
     try {
-      SendEmail.sendEmailThis(".target\\surefire-reports\\emailable-report.html");
+      SendEmail.sendEmailThis("\\target\\surefire-reports\\emailable-report.html");
     } catch (IOException | EmailException e) {
       e.printStackTrace();
     }
@@ -45,10 +47,8 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
   // set/batch
 
   @Override
-  public void onStart(final ITestContext arg0) {
-
-    Reporter.log("About to begin executing Test " + arg0.getName(), true);
-
+  public void onStart(final ITestContext testContext) {
+    Reporter.log("About to begin executing Test " + testContext.getName(), true);
   }
 
   // This belongs to ITestListener and will execute, once the Test set/batch
@@ -56,9 +56,7 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
 
   @Override
   public void onFinish(final ITestContext arg0) {
-
     Reporter.log("Completed executing test " + arg0.getName(), true);
-
   }
 
   // This belongs to ITestListener and will execute only when the test is pass
@@ -88,10 +86,20 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
   // (@Test)
 
   @Override
-  public void onTestStart(final ITestResult arg0) {
+  public void onTestStart(final ITestResult testContext) {
+
+    String recordingFileName = DataUtils.getScreenCastFolderPath(testContext.getName());
+    testContext.setAttribute("screenCastName", recordingFileName);
+    Reporter.log("About to begin executing Test " + testContext.getName(), true);
+    Reporter.log("About to begin ScreenCasting with File name " + recordingFileName, true);
+    try {
+      BaseFrameWorkInitializer.getInstance().getScreenCasting().startRecording(recordingFileName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
 
     System.out.println("The execution of the main test starts now");
-    Reporter.log("started executing test " + arg0.getName(), true);
+    Reporter.log("started executing test " + testContext.getName(), true);
 
   }
 

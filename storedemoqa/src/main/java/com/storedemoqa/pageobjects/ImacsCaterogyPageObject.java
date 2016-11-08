@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.Wait;
 public class ImacsCaterogyPageObject extends PageFooter {
 
   public ImacsCaterogyPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
     PageFactory.initElements(driver, this);
   }
 

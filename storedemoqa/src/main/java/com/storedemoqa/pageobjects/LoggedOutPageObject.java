@@ -13,7 +13,6 @@ public class LoggedOutPageObject extends PageFooter {
   WebElement loggedOutText;
 
   public LoggedOutPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
     PageFactory.initElements(driver, this);
   }
 

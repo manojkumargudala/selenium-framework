@@ -19,20 +19,20 @@ public class HomePageTestCase extends BaseDriverInitilization {
 
   @BeforeMethod
   public void SetUp() {
-    homePageObject = new HomePageObject(driver, wait);
+    homePageObject = new HomePageObject();
   }
 
 
 
   // Test case 4
-  @Test(dataProvider = "data-source", enabled = false)
+  @Test(dataProvider = "data-source", enabled = true)
   public void purchaseHistory(final EmployeeLogin emp) {
     System.out.println("in side the test case");
     System.out.println(emp.getEmployeedPassword());
     System.out.println(emp.getEmployeeLogin());
     System.out.println("***********************");
     // Ctrl+shift+C
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
     yourAccountPage.verifyPageLoaded();
     UserLoginHomePage userLoginHome = yourAccountPage.login(emp.getEmployeeLogin(),
@@ -52,7 +52,7 @@ public class HomePageTestCase extends BaseDriverInitilization {
     System.out.println(emp.getEmployeeLogin());
     System.out.println("***********************");
     // Ctrl+shift+C
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
     yourAccountPage.verifyPageLoaded();
     UserLoginHomePage userLoginHome = yourAccountPage.login(emp.getEmployeeLogin(),
@@ -72,7 +72,7 @@ public class HomePageTestCase extends BaseDriverInitilization {
     System.out.println(emp.getEmployeeLogin());
     System.out.println("***********************");
     // Ctrl+shift+C
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
     yourAccountPage.verifyPageLoaded();
     UserLoginHomePage userLoginHome = yourAccountPage.login(emp.getEmployeeLogin(),

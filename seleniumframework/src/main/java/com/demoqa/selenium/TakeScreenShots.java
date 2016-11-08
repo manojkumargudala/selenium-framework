@@ -22,7 +22,6 @@ public class TakeScreenShots {
     try {
       ImageIO.write(image, "PNG", new File(fileName));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }

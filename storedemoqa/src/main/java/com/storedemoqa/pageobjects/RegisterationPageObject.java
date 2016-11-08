@@ -21,7 +21,6 @@ public class RegisterationPageObject extends PageFooter {
   WebElement partialLinkTextRegister;
 
   public RegisterationPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
     PageFactory.initElements(driver, this);
   }
 

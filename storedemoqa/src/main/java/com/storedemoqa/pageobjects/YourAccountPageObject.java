@@ -29,7 +29,6 @@ public class YourAccountPageObject extends PageFooter {
   WebElement invalidCredentials;
 
   public YourAccountPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
     PageFactory.initElements(driver, this);
   }
 

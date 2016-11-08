@@ -20,12 +20,14 @@ public class BaseTestCase extends BaseDriverInitilization {
 
   @BeforeMethod
   public void SetUp() {
-    homePageObject = new HomePageObject(driver, wait);
+    homePageObject = new HomePageObject();
   }
 
   @Test
   public void loadUrl() {
-    driver.get(readProp.readProperty("baseurl"));
+    System.out.println("env" + System.getenv("allure.version"));
+    System.out.println("env" + System.getProperty("allure.version"));
+    loadBaseUrl();
     YourAccountPageObject yourAccountPageObject = homePageObject.clickMyAccount();
     yourAccountPageObject.verifyPageLoaded();
     RegisterationPageObject registrationPageObj = yourAccountPageObject.clickRegisterLink();
@@ -33,18 +35,18 @@ public class BaseTestCase extends BaseDriverInitilization {
   }
 
   // Test case 9
-  @Test(enabled = false)
+  @Test(enabled = true)
   public void checkCategories() {
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     ImacsCaterogyPageObject imacsCaterogyPageObject = homePageObject.goToImacsCategory();
     imacsCaterogyPageObject.verifyPageLoaded();
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     IPadsCaterogyPageObject ipCaterogyPageObject = homePageObject.goToIPadsCategory();
     ipCaterogyPageObject.verifyPageLoaded();
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     IPodsCaterogyPageObject ipodsCaterogyPageObject = homePageObject.goToIPodsCategory();
     ipodsCaterogyPageObject.verifyPageLoaded();
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     IPhonesCaterogyPageObject iphonesCaterogyPageObject = homePageObject.goToIPhonesCategory();
     iphonesCaterogyPageObject.verifyPageLoaded();
   }
@@ -52,7 +54,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   // Test case 8
   @Test(enabled = false)
   public void goToCheckOutPage() {
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     ImacsCaterogyPageObject imacsCaterogyPageObject = homePageObject.goToImacsCategory();
     imacsCaterogyPageObject.verifyPageLoaded();
     CheckOutPageObject checkoutPage = imacsCaterogyPageObject.goToCheckOutPage();
@@ -63,7 +65,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   // Test case 10
   @Test(enabled = false)
   public void goToProductDetailsCheckoutPage() {
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();
     productCategoryObj.verifyPageLoaded();
     CheckOutPageObject checkoutPage = productCategoryObj.goToCheckOutPage();
@@ -73,12 +75,12 @@ public class BaseTestCase extends BaseDriverInitilization {
   // Test case 11
   @Test(enabled = false)
   public void verifyItemsAddedToCartPage() {
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();
     productCategoryObj.verifyPageLoaded();
     CheckOutPageObject checkoutPage = productCategoryObj.goToCheckOutPage();
     checkoutPage.verifyIphoneAddedToCart();
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     checkoutPage = homePageObject.goToCheckOutPage();
     checkoutPage.verifyIphoneAddedToCart();
   }
@@ -86,7 +88,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   // Test case 12 -- Part A verify SPHOME links
   @Test(enabled = false)
   public void verifyPageFooterLinks() {
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();
     productCategoryObj.verifyPageLoaded();
     productCategoryObj.clickSpHomeLink();
@@ -107,7 +109,7 @@ public class BaseTestCase extends BaseDriverInitilization {
   // Test case 12 -- Part B verify Sample Page links
   @Test(enabled = false)
   public void verifySamplePageLinks() {
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     ProductCaterogyPageObject productCategoryObj = homePageObject.gotToProductCategory();
     productCategoryObj.verifyPageLoaded();
     SamplePageObject samplePage = productCategoryObj.clickSamplePageLink();

@@ -19,7 +19,7 @@ public class LoginTest extends BaseDriverInitilization {
 
   @BeforeMethod
   public void SetUp() {
-    homePageObject = new HomePageObject(driver, wait);
+    homePageObject = new HomePageObject();
   }
 
   // Test Case 2
@@ -30,7 +30,7 @@ public class LoginTest extends BaseDriverInitilization {
     System.out.println(emp.getEmployeeLogin());
     System.out.println("***********************");
     // Ctrl+shift+C
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
     yourAccountPage.verifyPageLoaded();
     UserLoginHomePage userLoginHome = yourAccountPage.login(emp.getEmployeeLogin(),
@@ -50,7 +50,7 @@ public class LoginTest extends BaseDriverInitilization {
     System.out.println(emp.getEmployeeLogin());
     System.out.println("***********************");
     // Ctrl+shift+C
-    driver.get(readProp.readProperty("baseurl"));
+    loadBaseUrl();
     YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
     yourAccountPage.verifyPageLoaded();
     UserLoginHomePage userLoginHome = yourAccountPage.login(emp.getEmployeeLogin(),

@@ -1,5 +1,6 @@
 package com.demoqa.selenium;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
@@ -12,21 +13,21 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 
+import com.demoqa.utils.BaseFrameWorkInitializer;
 import com.demoqa.utils.DataUtils;
 import com.demoqa.utils.ReadPropertyData;
 import com.demoqa.utils.ReadPropertyDataImpl;
-import com.demoqa.utils.SeleniumActions;
+import com.demoqa.utils.ScreenCasting;
 import com.demoqa.webdriver.SeleniumDriverObj;
 import com.demoqa.webdriver.SeleniumDriverObjImpl;
-
-import ru.yandex.qatools.allure.annotations.Step;
 
 @Listeners(value = {com.demoqa.listeners.MyTestngListener.class,
     com.demoqa.listeners.ExtentReporterNG.class})
 public class BaseDriverInitilization {
-  protected WebDriver driver;
-  protected ReadPropertyData readProp;
-  protected Wait<WebDriver> wait;
+  private WebDriver driver;
+  private ReadPropertyData readProp;
+  private Wait<WebDriver> wait;
+  private ScreenCasting scrnCst;
 
   @BeforeMethod
   public void myBaseDriverInitilization() {
@@ -38,13 +39,20 @@ public class BaseDriverInitilization {
     wait = new FluentWait<WebDriver>(driver).withTimeout(20, TimeUnit.SECONDS)
         .pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
         .ignoring(StaleElementReferenceException.class);
+    scrnCst = new ScreenCasting();
+    BaseFrameWorkInitializer.getInstance().setDriver(driver);
+    BaseFrameWorkInitializer.getInstance().setDriverWait(wait);
+    BaseFrameWorkInitializer.getInstance().setReadProp(readProp);
+    BaseFrameWorkInitializer.getInstance().setScreenCasting(scrnCst);
+
   }
 
-  @Step("Test case failed click here to see screenshot")
   @AfterMethod
-  public void takeScreenShot(final ITestResult result) {
+  public void takeScreenShot(final ITestResult result) throws IOException {
+    scrnCst.stopRecording();
+    WebDriver driver = BaseFrameWorkInitializer.getInstance().getDriver();
     if (ITestResult.FAILURE == result.getStatus()) {
-      String screenshotName = DataUtils.getRandomCaptureFullFileName(result.getName());
+      String screenshotName = DataUtils.getRandomCaptureFileName(result.getName());
       result.setAttribute("screenShotFileName", screenshotName);
       screenshotName = "./" + screenshotName;
       SeleniumActions.captureScreenshot(driver, screenshotName);
@@ -53,6 +61,9 @@ public class BaseDriverInitilization {
     driver.quit();
   }
 
+  protected void loadBaseUrl() {
+    driver.get(readProp.readProperty("baseurl"));
+  }
   // @AfterMethod
   // public void closeDriver() {
   // driver.close();

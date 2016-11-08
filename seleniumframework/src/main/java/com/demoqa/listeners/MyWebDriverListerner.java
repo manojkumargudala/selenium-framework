@@ -10,11 +10,6 @@ import com.demoqa.utils.DataUtils;
 
 public class MyWebDriverListerner implements WebDriverEventListener {
 
-  @Override
-  public void afterChangeValueOf(final WebElement arg0, final WebDriver arg1) {
-    // TODO Auto-generated method stub
-
-  }
 
   @Override
   public void afterClickOn(final WebElement arg0, final WebDriver arg1) {
@@ -52,11 +47,6 @@ public class MyWebDriverListerner implements WebDriverEventListener {
 
   }
 
-  @Override
-  public void beforeChangeValueOf(final WebElement arg0, final WebDriver arg1) {
-    // TODO Auto-generated method stub
-
-  }
 
   @Override
   public void beforeClickOn(final WebElement arg0, final WebDriver arg1) {
@@ -108,6 +98,20 @@ public class MyWebDriverListerner implements WebDriverEventListener {
 
   @Override
   public void afterNavigateRefresh(final WebDriver driver) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void afterChangeValueOf(final WebElement arg0, final WebDriver arg1,
+      final CharSequence[] arg2) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void beforeChangeValueOf(final WebElement arg0, final WebDriver arg1,
+      final CharSequence[] arg2) {
     // TODO Auto-generated method stub
 
   }

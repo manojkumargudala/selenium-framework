@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.Wait;
 public class IPodsCaterogyPageObject extends PageFooter {
 
   public IPodsCaterogyPageObject(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
     PageFactory.initElements(driver, this);
   }
 

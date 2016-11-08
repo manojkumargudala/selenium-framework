@@ -12,7 +12,6 @@ public class SamplePageObject extends PageFooter {
   WebElement samplePageHeader;
 
   public SamplePageObject(final WebDriver driver, final Wait<WebDriver> wait) {
-    super(driver, wait);
     PageFactory.initElements(driver, this);
   }
 
