@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="store-demo-qa-other-test" parallel="tests" verbose="1">
+<suite name="store-demo-qa-other-test" parallel="methods" verbose="1">
 	<listeners>
 		<listener class-name="com.demoqa.listeners.MyTestngListener" />
 		<listener class-name="com.demoqa.listeners.ExtentReporterNG"></listener>

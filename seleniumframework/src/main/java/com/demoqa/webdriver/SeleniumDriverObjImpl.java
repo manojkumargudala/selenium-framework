@@ -1,5 +1,7 @@
 package com.demoqa.webdriver;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.WebDriver;
@@ -35,7 +37,7 @@ public class SeleniumDriverObjImpl implements SeleniumDriverObj {
   private void getBrowerSpecificDriver(final String browserName) {
     if (browserName.equalsIgnoreCase("FireFox")) {
       DesiredCapabilities cap = DesiredCapabilities.firefox();
-      System.setProperty("webdriver.gecko.driver", "geckodriver.exe");
+      System.setProperty("webdriver.gecko.driver", getPath("geckodriver.exe"));
       driver = new FirefoxDriver(cap);
     }
     if (browserName.equalsIgnoreCase("IE")) {
@@ -55,5 +57,24 @@ public class SeleniumDriverObjImpl implements SeleniumDriverObj {
       driver = new ChromeDriver(capabilities);
     }
 
+  }
+
+  private String getPath(final String browserImplExeFileName) {
+    System.out.println("browser file name " + browserImplExeFileName);
+    File file = new File(getClass().getClassLoader().getResource(browserImplExeFileName).getFile());
+    String fileAbsPath = file.getAbsolutePath();
+    System.out.println("absPath" + fileAbsPath);
+    String fileCancialPath = file.getPath();
+    System.out.println("fullPath" + fileCancialPath);
+    try {
+      String fileAbsPath1 = file.getCanonicalPath();
+      System.out.println("fullCanc" + fileAbsPath1);
+
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+    return fileCancialPath;
   }
 }

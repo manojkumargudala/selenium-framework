@@ -9,6 +9,11 @@ public class BaseFrameWorkInitializer {
   private Wait<WebDriver> webdriverWait;
   private ReadPropertyData readProp;
   private ScreenCasting screenCasting;
+  private boolean runInDebugMode;
+
+  private BaseFrameWorkInitializer() {
+
+  }
 
   public static BaseFrameWorkInitializer getInstance() {
     if (baseFrameWorkInitializer == null) {
@@ -57,5 +62,13 @@ public class BaseFrameWorkInitializer {
 
   public void setScreenCasting(final ScreenCasting screenCasting) {
     this.screenCasting = screenCasting;
+  }
+
+  public boolean isRunInDebugMode() {
+    return runInDebugMode;
+  }
+
+  public void setRunInDebugMode(final boolean runInDebugMode) {
+    this.runInDebugMode = runInDebugMode;
   }
 }

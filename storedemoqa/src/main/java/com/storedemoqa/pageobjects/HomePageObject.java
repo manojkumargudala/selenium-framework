@@ -5,6 +5,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.testng.Reporter;
 
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -34,6 +35,7 @@ public class HomePageObject extends PageFooter {
 
   @Step("Click on my Account")
   public YourAccountPageObject clickMyAccount() {
+    Reporter.log("Click on my Account");
     YourAccountPageObject yourAccountPageObject = new YourAccountPageObject(driver, wait);
     wait.until(ExpectedConditions.elementToBeClickable(myAccount));
     myAccount.click();

@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="suite of suites">
-	<suite-files>
+<suite name="suite of suites" thread-count="2">
+	<suite-files suitethreadpoolsize="5">
 		<suite-file path="testng_1.xml" />
 		<suite-file path="testng_2.xml" />
 	</suite-files>

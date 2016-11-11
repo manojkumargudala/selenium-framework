@@ -1,5 +1,6 @@
 package com.storedemoqa.testcases;
 
+import org.testng.Reporter;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -25,6 +26,7 @@ public class BaseTestCase extends BaseDriverInitilization {
 
   @Test
   public void loadUrl() {
+    Reporter.log("started Load Url Test Case");
     System.out.println("env" + System.getenv("allure.version"));
     System.out.println("env" + System.getProperty("allure.version"));
     loadBaseUrl();

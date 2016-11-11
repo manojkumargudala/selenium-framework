@@ -7,6 +7,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Wait;
+import org.testng.Reporter;
 
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -41,6 +42,7 @@ public class YourAccountPageObject extends PageFooter {
   }
 
   public RegisterationPageObject clickRegisterLink() {
+    Reporter.log("Click on Register Link");
     RegisterationPageObject registerPageObject = new RegisterationPageObject(driver, wait);
     registerLink.click();
     return registerPageObject;

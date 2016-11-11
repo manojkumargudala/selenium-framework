@@ -32,12 +32,11 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
   // finished
 
   @Override
-  public void onFinish(final ISuite arg0) {
-
-    Reporter.log("About to end executing Suite " + arg0.getName(), true);
-    // write send email
+  public void onFinish(final ISuite iSuite) {
+    Reporter.log("About to end executing Suite " + iSuite.getName(), true);
     try {
-      SendEmail.sendEmailThis("\\target\\surefire-reports\\emailable-report.html");
+      SendEmail.sendEmailThis("\\target\\surefire-reports\\emailable-report.html",
+          iSuite.getName());
     } catch (IOException | EmailException e) {
       e.printStackTrace();
     }

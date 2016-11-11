@@ -3,6 +3,7 @@ package com.demoqa.listeners;
 import java.io.File;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +15,7 @@ import org.testng.IResultMap;
 import org.testng.ISuite;
 import org.testng.ISuiteResult;
 import org.testng.ITestContext;
+import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.xml.XmlSuite;
@@ -44,6 +46,7 @@ public class ExtentReporterNG implements IReporter {
         buildTestNodes(context.getPassedTests(), LogStatus.PASS, extendSuite);
         buildTestNodes(context.getFailedTests(), LogStatus.FAIL, extendSuite);
         buildTestNodes(context.getSkippedTests(), LogStatus.SKIP, extendSuite);
+        buildTestNodes(context.getExcludedMethods(), LogStatus.SKIP, extendSuite);
         mainSuite.appendChild(extendSuite);
         extent.endTest(extendSuite);
       }
@@ -60,48 +63,68 @@ public class ExtentReporterNG implements IReporter {
     extent.close();
   }
 
+  private void buildTestNodes(final Collection<ITestNGMethod> excludedMethods, final LogStatus skip,
+      final ExtentTest extendSuite) {
+    for (ITestNGMethod itestMethod : excludedMethods) {
+      ExtentTest test = extent.startTest(itestMethod.getMethodName());
+      extendSuite.appendChild(test);
+      test.log(skip, "it is being ignored");
+      extent.endTest(test);
+    }
+  }
+
   private void buildTestNodes(final IResultMap tests, final LogStatus status,
       final ExtentTest extendSuite) {
-    ExtentTest test;
-
     if (tests.size() > 0) {
       for (ITestResult result : tests.getAllResults()) {
-        test = extent.startTest(result.getMethod().getMethodName());
-
-        test.setStartedTime(getTime(result.getStartMillis()));
-        test.setEndedTime(getTime(result.getEndMillis()));
-
-        for (String group : result.getMethod().getGroups())
-          test.assignCategory(group);
-        if (result.getThrowable() != null) {
-          test.log(status, result.getThrowable());
-        } else {
-          test.log(status, "Test " + status.toString().toLowerCase() + "ed");
-        }
-        System.out.println(
-            "the screen shot file name is " + (String) result.getAttribute("screenShotFileName"));
-        String screenCastfileName = (String) result.getAttribute("screenCastName");
-        System.out.println("the screen casting file name is " + screenCastfileName);
-        if (!(result.getAttribute("screenShotFileName") == null)) {
-          test.log(LogStatus.FAIL, "Testcase Failed", test.addBase64ScreenShot(
-              DataUtils.getScreenShotFullPath((String) result.getAttribute("screenShotFileName"))));
-          test.addScreenCapture((String) result.getAttribute("screenShotFileName"));
-        }
-        test.log(LogStatus.FAIL, "Screen Casting ",
-            test.addScreencast(getFileName(screenCastfileName)));
-        extendSuite.appendChild(test);
-        extent.endTest(test);
+        generateExtentTest(status, extendSuite, result);
       }
     }
+  }
+
+  private void generateExtentTest(final LogStatus status, final ExtentTest extendSuite,
+      final ITestResult result) {
+    ExtentTest test = extent.startTest(result.getMethod().getMethodName());
+
+    test.setStartedTime(getTime(result.getStartMillis()));
+    test.setEndedTime(getTime(result.getEndMillis()));
+    for (String str : Reporter.getOutput(result)) {
+      log.info(str);
+      test.log(LogStatus.INFO, str);
+    }
+    for (String group : result.getMethod().getGroups())
+      test.assignCategory(group);
+    if (result.getThrowable() != null) {
+      test.log(status, result.getThrowable());
+    } else {
+      test.log(status, "Test " + status.toString().toLowerCase() + "ed");
+    }
+    System.out.println(
+        "the screen shot file name is " + (String) result.getAttribute("screenShotFileName"));
+    String screenCastfileName = (String) result.getAttribute("screenCastName");
+    System.out.println("the screen casting file name is " + screenCastfileName);
+    if (!(result.getAttribute("screenShotFileName") == null)) {
+      test.log(LogStatus.INFO, "Testcase Failed", test.addBase64ScreenShot(
+          DataUtils.getScreenShotFullPath((String) result.getAttribute("screenShotFileName"))));
+      test.addScreenCapture((String) result.getAttribute("screenShotFileName"));
+    }
+    addScreenCastToReport(test, screenCastfileName);
+    extendSuite.appendChild(test);
+    extent.endTest(test);
+  }
+
+  private void addScreenCastToReport(ExtentTest test, String screenCastfileName) {
+    test.log(LogStatus.INFO, "Screen Casting ",
+        test.addScreencast(getFileName(screenCastfileName)));
   }
 
   private String getFileName(final String screenCastfileName) {
     File folder = new File(screenCastfileName);
     File files[] = folder.listFiles();
     Arrays.sort(files, (a, b) -> Long.compare(a.lastModified(), b.lastModified()));
-    System.out.println(files[files.length - 1].getName());
-    log.debug("screen cast full name " + screenCastfileName + files[0].getName());
-    return screenCastfileName + "\\" + files[0].getName();
+    String screnCaseFullPath = screenCastfileName + "\\" + files[0].getName();
+    log.debug("screen cast full name " + screenCastfileName);
+    return screnCaseFullPath;
   }
 
   private Date getTime(final long millis) {
