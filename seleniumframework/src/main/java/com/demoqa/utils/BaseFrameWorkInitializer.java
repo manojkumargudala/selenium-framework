@@ -1,74 +1,76 @@
 package com.demoqa.utils;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 
 public class BaseFrameWorkInitializer {
-  public static BaseFrameWorkInitializer baseFrameWorkInitializer;
-  private WebDriver driver;
-  private Wait<WebDriver> webdriverWait;
-  private ReadPropertyData readProp;
-  private ScreenCasting screenCasting;
-  private boolean runInDebugMode;
+	static Logger logger = Logger.getLogger(BaseFrameWorkInitializer.class);
+	public static BaseFrameWorkInitializer baseFrameWorkInitializer;
+	private WebDriver driver;
+	private Wait<WebDriver> webdriverWait;
+	private ReadPropertyData readProp;
+	private ScreenCasting screenCasting;
+	private boolean runInDebugMode;
 
-  private BaseFrameWorkInitializer() {
+	private BaseFrameWorkInitializer() {
 
-  }
+	}
 
-  public static BaseFrameWorkInitializer getInstance() {
-    if (baseFrameWorkInitializer == null) {
-      baseFrameWorkInitializer = new BaseFrameWorkInitializer();
-    }
-    return baseFrameWorkInitializer;
-  }
+	public static BaseFrameWorkInitializer getInstance() {
+		if (baseFrameWorkInitializer == null) {
+			baseFrameWorkInitializer = new BaseFrameWorkInitializer();
+		}
+		return baseFrameWorkInitializer;
+	}
 
-  public void setDriverWait(final Wait<WebDriver> webdriverWait) {
-    this.webdriverWait = webdriverWait;
-  }
+	public void setDriverWait(final Wait<WebDriver> webdriverWait) {
+		this.webdriverWait = webdriverWait;
+	}
 
-  public Wait<WebDriver> getWebDriverWait() {
-    assertingNotNull(webdriverWait);
-    return webdriverWait;
-  }
+	public Wait<WebDriver> getWebDriverWait() {
+		assertingNotNull(webdriverWait);
+		return webdriverWait;
+	}
 
-  public void setDriver(final WebDriver driver) {
-    this.driver = driver;
-  }
+	public void setDriver(final WebDriver driver) {
+		this.driver = driver;
+	}
 
-  public WebDriver getDriver() {
-    assertingNotNull(driver);
-    return driver;
-  }
+	public WebDriver getDriver() {
+		assertingNotNull(driver);
+		return driver;
+	}
 
-  private static void assertingNotNull(final Object object) {
-    if (object == null) {
-      System.out.println("the object being returned is null");
-    }
-  }
+	private static void assertingNotNull(final Object object) {
+		if (object == null) {
+			logger.debug("the object being returned is null");
+		}
+	}
 
-  public ReadPropertyData getReadProp() {
-    assertingNotNull(readProp);
-    return readProp;
-  }
+	public ReadPropertyData getReadProp() {
+		assertingNotNull(readProp);
+		return readProp;
+	}
 
-  public void setReadProp(final ReadPropertyData readProp) {
-    this.readProp = readProp;
-  }
+	public void setReadProp(final ReadPropertyData readProp) {
+		this.readProp = readProp;
+	}
 
-  public ScreenCasting getScreenCasting() {
-    assertingNotNull(screenCasting);
-    return screenCasting;
-  }
+	public ScreenCasting getScreenCasting() {
+		assertingNotNull(screenCasting);
+		return screenCasting;
+	}
 
-  public void setScreenCasting(final ScreenCasting screenCasting) {
-    this.screenCasting = screenCasting;
-  }
+	public void setScreenCasting(final ScreenCasting screenCasting) {
+		this.screenCasting = screenCasting;
+	}
 
-  public boolean isRunInDebugMode() {
-    return runInDebugMode;
-  }
+	public boolean isRunInDebugMode() {
+		return runInDebugMode;
+	}
 
-  public void setRunInDebugMode(final boolean runInDebugMode) {
-    this.runInDebugMode = runInDebugMode;
-  }
+	public void setRunInDebugMode(final boolean runInDebugMode) {
+		this.runInDebugMode = runInDebugMode;
+	}
 }
