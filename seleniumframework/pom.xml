@@ -4,6 +4,7 @@
 	<groupId>com.demoqa.qa.automation</groupId>
 	<artifactId>seleniumframework</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<properties>
 		<allure.version>1.4.16</allure.version>
 		<aspectj.version>1.8.5</aspectj.version>
@@ -72,6 +73,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>4.3.4.RELEASE</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -88,31 +94,27 @@
 				<artifactId>driver-binary-downloader-maven-plugin</artifactId>
 				<version>1.0.11</version>
 				<configuration>
-					<rootStandaloneServerDirectory>${project.basedir}/src/main/resources</rootStandaloneServerDirectory>
+					<rootStandaloneServerDirectory>${project.basedir}/src/main/resources/binaries</rootStandaloneServerDirectory>
 					<downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips</downloadedZipFileDirectory>
 					<customRepositoryMap>${project.basedir}/src/test/resources/RepositoryMap.xml</customRepositoryMap>
 					<overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
 					<useSystemProxy>false</useSystemProxy>
+					<onlyGetDriversForHostOperatingSystem>true</onlyGetDriversForHostOperatingSystem>
+					<operatingSystems>
+						<windows>true</windows>
+						<linux>true</linux>
+						<mac>true</mac>
+					</operatingSystems>
+					<thirtyTwoBitBinaries>true</thirtyTwoBitBinaries>
+					<sixtyFourBitBinaries>true</sixtyFourBitBinaries>
 				</configuration>
 				<executions>
 					<execution>
+						<phase>test-compile</phase>
+						<id>download-binares</id>
 						<goals>
 							<goal>selenium</goal>
 						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>3.0.0</version>
-				<configuration>
-					<descriptors>
-						<descriptor>selenium-framework-assemblysfdsf.xml</descriptor>
-					</descriptors>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>post-integration-test</phase>
 					</execution>
 				</executions>
 			</plugin>

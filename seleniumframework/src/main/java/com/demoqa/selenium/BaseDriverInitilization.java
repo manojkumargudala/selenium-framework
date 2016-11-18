@@ -22,48 +22,50 @@ import com.demoqa.utils.ScreenCasting;
 import com.demoqa.webdriver.SeleniumDriverObj;
 import com.demoqa.webdriver.SeleniumDriverObjImpl;
 
-@Listeners(value = { com.demoqa.listeners.MyTestngListener.class, com.demoqa.listeners.ExtentReporterNG.class })
+@Listeners(value = {com.demoqa.listeners.MyTestngListener.class,
+    com.demoqa.listeners.ExtentReporterNG.class})
 public class BaseDriverInitilization {
-	private WebDriver driver;
-	private ReadPropertyData readProp;
-	private Wait<WebDriver> wait;
-	private ScreenCasting scrnCst;
+  private WebDriver driver;
+  private ReadPropertyData readProp;
+  private Wait<WebDriver> wait;
+  private ScreenCasting scrnCst;
 
-	@BeforeMethod
-	public void myBaseDriverInitilization() {
-		readProp = new ReadPropertyDataImpl("demoqaprops.properties");
-		// readProp = new ReadPropertyDataImpl("demoqaprops.properties");
-		SeleniumDriverObj selObj = new SeleniumDriverObjImpl();
-		driver = selObj.getDriver(readProp.readProperty("browser"));
-		wait = new FluentWait<WebDriver>(driver).withTimeout(20, TimeUnit.SECONDS).pollingEvery(1, TimeUnit.SECONDS)
-				.ignoring(NoSuchElementException.class).ignoring(StaleElementReferenceException.class);
-		scrnCst = new ScreenCasting();
-		BaseFrameWorkInitializer.getInstance().setDriver(driver);
-		BaseFrameWorkInitializer.getInstance().setDriverWait(wait);
-		BaseFrameWorkInitializer.getInstance().setReadProp(readProp);
-		BaseFrameWorkInitializer.getInstance().setScreenCasting(scrnCst);
-		BaseFrameWorkInitializer.getInstance().setRunInDebugMode(readProp.isRunningDebug());
+  @BeforeMethod
+  public void myBaseDriverInitilization() {
+    readProp = new ReadPropertyDataImpl("demoqaprops.properties");
+    // readProp = new ReadPropertyDataImpl("demoqaprops.properties");
+    SeleniumDriverObj selObj = new SeleniumDriverObjImpl();
+    driver = selObj.getDriver(readProp.readProperty("browser"));
+    wait = new FluentWait<WebDriver>(driver).withTimeout(20, TimeUnit.SECONDS)
+        .pollingEvery(1, TimeUnit.SECONDS).ignoring(NoSuchElementException.class)
+        .ignoring(StaleElementReferenceException.class);
+    scrnCst = new ScreenCasting();
+    BaseFrameWorkInitializer.getInstance().setDriver(driver);
+    BaseFrameWorkInitializer.getInstance().setDriverWait(wait);
+    BaseFrameWorkInitializer.getInstance().setReadProp(readProp);
+    BaseFrameWorkInitializer.getInstance().setScreenCasting(scrnCst);
+    BaseFrameWorkInitializer.getInstance().setRunInDebugMode(readProp.isRunningDebug());
 
-	}
+  }
 
-	@AfterMethod
-	public void takeScreenShot(final ITestResult result) throws IOException {
-		if (BaseFrameWorkInitializer.getInstance().isRunInDebugMode()) {
-			scrnCst.stopRecording();
-		}
-		WebDriver driver = BaseFrameWorkInitializer.getInstance().getDriver();
-		if (ITestResult.FAILURE == result.getStatus()) {
-			String screenshotName = DataUtils.getRandomCaptureFileName(result.getName());
-			result.setAttribute("screenShotFileName", screenshotName);
-			screenshotName = "./" + screenshotName;
-			SeleniumActions.captureScreenshot(driver, screenshotName);
-		}
-		driver.close();
-		driver.quit();
-	}
+  @AfterMethod
+  public void takeScreenShot(final ITestResult result) throws IOException {
+    if (BaseFrameWorkInitializer.getInstance().isRunInDebugMode()) {
+      scrnCst.stopRecording();
+    }
+    WebDriver driver = BaseFrameWorkInitializer.getInstance().getDriver();
+    if (ITestResult.FAILURE == result.getStatus()) {
+      String screenshotName = DataUtils.getRandomCaptureFileName(result.getName());
+      result.setAttribute("screenShotFileName", screenshotName);
+      screenshotName = "./" + screenshotName;
+      SeleniumActions.captureScreenshot(driver, screenshotName);
+    }
+    driver.close();
+    driver.quit();
+  }
 
-	protected void loadBaseUrl() {
-		Reporter.log("Loaded the URL is " + readProp.readProperty("baseurl"));
-		driver.get(readProp.readProperty("baseurl"));
-	}
+  protected void loadBaseUrl() {
+    Reporter.log("Loaded the URL is " + readProp.readProperty("baseurl"));
+    driver.get(readProp.readProperty("baseurl"));
+  }
 }

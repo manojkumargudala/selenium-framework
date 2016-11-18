@@ -5,32 +5,32 @@ import java.io.InputStream;
 import java.util.Properties;
 
 public class ReadPropertyDataImpl implements ReadPropertyData {
-	Properties prop;
+  Properties prop;
 
-	public ReadPropertyDataImpl(final String propertyFilePath) {
-		InputStream fis = null;
-		fis = this.getClass().getClassLoader().getResourceAsStream(propertyFilePath);
-		prop = new Properties();
-		try {
-			prop.load(fis);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+  public ReadPropertyDataImpl(final String propertyFilePath) {
+    InputStream fis = null;
+    fis = this.getClass().getClassLoader().getResourceAsStream(propertyFilePath);
+    prop = new Properties();
+    try {
+      prop.load(fis);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
 
-	}
+  }
 
-	@Override
-	public String readProperty(final String key) {
-		return prop.getProperty(key);
-	}
+  @Override
+  public String readProperty(final String key) {
+    return prop.getProperty(key);
+  }
 
-	@Override
-	public Boolean isRunningDebug() {
-		String debugMode = System.getProperty("debug");
-		if (debugMode != null) {
-			return DataUtils.stringToBoolean(debugMode);
-		}
-		return DataUtils.stringToBoolean(prop.getProperty("debug"));
-	}
+  @Override
+  public Boolean isRunningDebug() {
+    String debugMode = System.getProperty("debug");
+    if (debugMode != null) {
+      return DataUtils.stringToBoolean(debugMode);
+    }
+    return DataUtils.stringToBoolean(prop.getProperty("debug"));
+  }
 
 }
