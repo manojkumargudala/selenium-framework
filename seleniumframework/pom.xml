@@ -94,7 +94,7 @@
 				<artifactId>driver-binary-downloader-maven-plugin</artifactId>
 				<version>1.0.11</version>
 				<configuration>
-					<rootStandaloneServerDirectory>${project.basedir}/src/main/resources/binaries</rootStandaloneServerDirectory>
+					<rootStandaloneServerDirectory>${project.basedir}/src/test/resources/binaries</rootStandaloneServerDirectory>
 					<downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips</downloadedZipFileDirectory>
 					<customRepositoryMap>${project.basedir}/src/test/resources/RepositoryMap.xml</customRepositoryMap>
 					<overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
@@ -115,6 +115,30 @@
 						<goals>
 							<goal>selenium</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<id>exe-files</id>
+						<phase>test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<target name="copy binaries files to jar">
+								<copy file="${webdriver.chrome.driver}" tofile="${basedir}/src/main/resources/chromedriver.exe" />
+								<copy file="${phantomjs.binary.path}" tofile="${basedir}/src/main/resources/phantomjs.exe" />
+								<copy file="${webdriver.opera.driver}" tofile="${basedir}/src/main/resources/operadriver.exe" />
+								<copy file="${webdriver.ie.driver}"
+									tofile="${basedir}/src/main/resources/IEDriverServer.exe" />
+								<copy file="${webdriver.gecko.driver}" tofile="${basedir}/src/main/resources/geckodriver.exe" />
+							</target>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

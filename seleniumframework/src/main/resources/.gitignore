@@ -1,3 +1,8 @@
 /selenium_standalone_zips/
 /windows/
 /binaries/
+/chromedriver.exe
+/geckodriver.exe
+/IEDriverServer.exe
+/operadriver.exe
+/phantomjs.exe
