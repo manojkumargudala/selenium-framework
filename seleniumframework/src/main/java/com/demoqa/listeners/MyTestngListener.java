@@ -17,6 +17,7 @@ import org.testng.Reporter;
 
 import com.demoqa.utils.BaseFrameWorkInitializer;
 import com.demoqa.utils.FilePathUtils;
+import com.demoqa.utils.GenericConstants;
 import com.demoqa.utils.SendEmail;
 
 public class MyTestngListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
@@ -92,11 +93,26 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
   @Override
   public void onTestStart(final ITestResult testContext) {
 
+    startScreenCasting(testContext);
+    startResponseCodeCheck(testContext);
+    Reporter.log("started executing test " + testContext.getName(), true);
+
+  }
+
+  private void startResponseCodeCheck(final ITestResult testContext) {
+    BaseFrameWorkInitializer baseFrmInitalzer = BaseFrameWorkInitializer.getInstance();
+    if (baseFrmInitalzer.isCheckResponseCodes()) {
+      baseFrmInitalzer.getBrowserMobProxy().newHar(testContext.getName());
+
+    }
+  }
+
+  private void startScreenCasting(final ITestResult testContext) {
     String recordingFileName = FilePathUtils.getScreenCastFolderPath(testContext.getName());
-    testContext.setAttribute("screenCastName", recordingFileName);
+    testContext.setAttribute(GenericConstants.SCREEN_CAST_REPORTER_ATTRIBUTE, recordingFileName);
     Reporter.log("About to begin executing Test " + testContext.getName(), true);
     if (BaseFrameWorkInitializer.getInstance().isRunInDebugMode()) {
-      Reporter.log("About to begin ScreenCasting with folder name " + recordingFileName, true);
+      Reporter.log("About to begin screen casting with folder name " + recordingFileName, true);
       try {
         BaseFrameWorkInitializer.getInstance().getScreenCasting().startRecording(recordingFileName);
       } catch (Exception e) {
@@ -105,8 +121,6 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
         e.printStackTrace();
       }
     }
-    Reporter.log("started executing test " + testContext.getName(), true);
-
   }
 
   // This belongs to ITestListener and will execute only if any of the main
@@ -166,7 +180,7 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
     String textMsg =
         "About to begin executing following method : " + returnMethodName(arg0.getTestMethod());
 
-    Reporter.log(textMsg, true);
+    logger.debug(textMsg);
 
   }
 
@@ -179,7 +193,7 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
     String textMsg =
         "Completed executing following method : " + returnMethodName(arg0.getTestMethod());
 
-    Reporter.log(textMsg, true);
+    logger.debug(textMsg);
 
   }
 

@@ -4,29 +4,29 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Wait;
 
+import net.lightbody.bmp.BrowserMobProxy;
+
 public class BaseFrameWorkInitializer {
-  static Logger logger = Logger.getLogger(BaseFrameWorkInitializer.class);
-  public static ThreadLocal<BaseFrameWorkInitializer> baseFrameWorkInitializer;
+  private static Logger logger = Logger.getLogger(BaseFrameWorkInitializer.class);
   private WebDriver driver;
   private Wait<WebDriver> webdriverWait;
   private ReadPropertyData readProp;
   private ScreenCasting screenCasting;
   private boolean runInDebugMode;
-
-  private BaseFrameWorkInitializer() {
-
-  }
-
-  public static BaseFrameWorkInitializer getInstance() {
-    if (baseFrameWorkInitializer == null) {
-      baseFrameWorkInitializer = new ThreadLocal<BaseFrameWorkInitializer>() {
+  private BrowserMobProxy browserMobProxy;
+  private boolean checkResponseCodes;
+  public static ThreadLocal<BaseFrameWorkInitializer> baseFrameWorkInitializer =
+      new ThreadLocal<BaseFrameWorkInitializer>() {
         @Override
         protected BaseFrameWorkInitializer initialValue() {
           BaseFrameWorkInitializer baseFrameWork = new BaseFrameWorkInitializer();
           return baseFrameWork;
         }
       };
-    }
+
+  private BaseFrameWorkInitializer() {}
+
+  public static BaseFrameWorkInitializer getInstance() {
     return baseFrameWorkInitializer.get();
   }
 
@@ -46,12 +46,6 @@ public class BaseFrameWorkInitializer {
   public WebDriver getDriver() {
     assertingNotNull(driver);
     return driver;
-  }
-
-  private static void assertingNotNull(final Object object) {
-    if (object == null) {
-      logger.debug("the object being returned is null");
-    }
   }
 
   public ReadPropertyData getReadProp() {
@@ -78,5 +72,31 @@ public class BaseFrameWorkInitializer {
 
   public void setRunInDebugMode(final boolean runInDebugMode) {
     this.runInDebugMode = runInDebugMode;
+  }
+
+  public void removeThreadVairable() {
+    baseFrameWorkInitializer.remove();
+  }
+
+  public BrowserMobProxy getBrowserMobProxy() {
+    return browserMobProxy;
+  }
+
+  public void setBrowserMobProxy(final BrowserMobProxy browserMobProxy) {
+    this.browserMobProxy = browserMobProxy;
+  }
+
+  public boolean isCheckResponseCodes() {
+    return checkResponseCodes;
+  }
+
+  public void setCheckResponseCodes(final boolean checkResponseCodes) {
+    this.checkResponseCodes = checkResponseCodes;
+  }
+
+  private static void assertingNotNull(final Object object) {
+    if (object == null) {
+      logger.debug("the object being returned is null");
+    }
   }
 }

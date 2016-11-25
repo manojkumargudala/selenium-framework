@@ -28,8 +28,10 @@ public class DataUtils {
 
   }
 
-  public static boolean stringToBoolean(String property) {
-    if (property.equalsIgnoreCase("true"))
+  public static boolean stringToBoolean(final String property) {
+    if (property == null)
+      return false;
+    else if (property.equalsIgnoreCase("true"))
       return true;
     else
       return false;
