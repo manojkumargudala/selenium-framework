@@ -1,7 +1,9 @@
 package com.demoqa.webdriver;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
@@ -11,6 +13,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.safari.SafariDriver;
@@ -57,6 +60,7 @@ public enum DriverType implements DriverSetup {
           FilePathUtils.getDriverFullPath("chromedriver.exe"));
       ChromeOptions options = new ChromeOptions();
       options.addArguments("test-type");
+      options.addArguments("--no-sandbox");
       capabilities.setCapability("chrome.binary",
           FilePathUtils.getDriverFullPath("chromedriver.exe"));
       capabilities.setCapability(ChromeOptions.CAPABILITY, options);
@@ -144,6 +148,30 @@ public enum DriverType implements DriverSetup {
       return DriverType.setBrowserProxy(isCheckRequestcode, capabilities);
     }
 
+  },
+  PHANTOMJS {
+    @Override
+    public DesiredCapabilities getDesiredCapabilities() {
+      DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+      final List<String> cliArguments = new ArrayList<String>();
+      cliArguments.add("--web-security=false");
+      cliArguments.add("--ssl-protocol=any");
+      cliArguments.add("--ignore-ssl-errors=true");
+      capabilities.setCapability("phantomjs.cli.args", cliArguments);
+      capabilities.setCapability("takesScreenshot", true);
+      return capabilities;
+    }
+
+    @Override
+    public WebDriver getWebDriverObject(final DesiredCapabilities capabilities) {
+      return new PhantomJSDriver(capabilities);
+    }
+
+    @Override
+    public DesiredCapabilities addResponseCodeChecks(final DesiredCapabilities capabilities,
+        final boolean isCheckRequestcode) {
+      return DriverType.setBrowserProxy(isCheckRequestcode, capabilities);
+    }
   };
 
   private static DesiredCapabilities setBrowserProxy(final Boolean checkCodes,
@@ -161,4 +189,5 @@ public enum DriverType implements DriverSetup {
     Random random = new Random();
     return values()[random.nextInt(values().length)];
   }
+
 }

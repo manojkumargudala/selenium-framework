@@ -102,8 +102,8 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
   private void startResponseCodeCheck(final ITestResult testContext) {
     BaseFrameWorkInitializer baseFrmInitalzer = BaseFrameWorkInitializer.getInstance();
     if (baseFrmInitalzer.isCheckResponseCodes()) {
-      baseFrmInitalzer.getBrowserMobProxy().newHar(testContext.getName());
-
+      // baseFrmInitalzer.getBrowserMobProxy().newHar("store.demoqa.com");
+      baseFrmInitalzer.getBrowserMobProxy().newHar();
     }
   }
 

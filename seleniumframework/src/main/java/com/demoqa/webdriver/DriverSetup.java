@@ -8,6 +8,6 @@ public interface DriverSetup {
 
   public DesiredCapabilities getDesiredCapabilities();
 
-  public DesiredCapabilities addResponseCodeChecks(DesiredCapabilities cap,
+  public DesiredCapabilities addResponseCodeChecks(DesiredCapabilities capabilities,
       boolean isCheckRequestcode);
 }

@@ -26,20 +26,13 @@ public class ReadPropertyDataImpl implements ReadPropertyData {
 
   @Override
   public Boolean isRunningDebug() {
-    String debugMode = System.getProperty("debug");
-    if (debugMode != null) {
-      return DataUtils.stringToBoolean(debugMode);
-    }
-    return DataUtils.stringToBoolean(prop.getProperty(GenericConstants.RUN_IN_DEBUG));
+    return DataUtils.stringToBoolean(
+        System.getProperty("debug", prop.getProperty(GenericConstants.RUN_IN_DEBUG)));
   }
 
   @Override
   public Boolean isCodeChecksEnabled() {
-    String debugMode = System.getProperty("check-codes");
-    if (debugMode != null) {
-      return DataUtils.stringToBoolean(debugMode);
-    }
-    return DataUtils
-        .stringToBoolean(prop.getProperty(GenericConstants.ENABLE_RESPONSE_CODE_CHECKS));
+    return DataUtils.stringToBoolean(System.getProperty("check-codes",
+        prop.getProperty(GenericConstants.ENABLE_RESPONSE_CODE_CHECKS)));
   }
 }

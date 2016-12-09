@@ -3,6 +3,7 @@ package com.demoqa.selenium;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashSet;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.NoSuchElementException;
@@ -28,6 +29,7 @@ import com.demoqa.webdriver.SeleniumDriverObjImpl;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.core.har.Har;
+import net.lightbody.bmp.proxy.CaptureType;
 
 @Listeners(value = {com.demoqa.listeners.MyTestngListener.class,
     com.demoqa.listeners.ExtentReporterNG.class})
@@ -56,7 +58,17 @@ public class BaseDriverInitilization {
     if (checkCodes) {
       BrowserMobProxy proxy = new BrowserMobProxyServer();
       proxy.start();
+      HashSet<CaptureType> enable = new HashSet<CaptureType>();
+      enable.add(CaptureType.REQUEST_HEADERS);
+      enable.add(CaptureType.REQUEST_CONTENT);
+      enable.add(CaptureType.RESPONSE_HEADERS);
+      proxy.enableHarCaptureTypes(enable);
+      HashSet<CaptureType> disable = new HashSet<CaptureType>();
+      disable.add(CaptureType.REQUEST_COOKIES);
+      disable.add(CaptureType.RESPONSE_COOKIES);
+      proxy.disableHarCaptureTypes(disable);
       BaseFrameWorkInitializer.getInstance().setBrowserMobProxy(proxy);
+      System.out.println("started browser mob proxy on port " + proxy.getPort());
     }
   }
 
@@ -83,8 +95,9 @@ public class BaseDriverInitilization {
     BrowserMobProxy proxy = BaseFrameWorkInitializer.getInstance().getBrowserMobProxy();
     Har har = proxy.getHar();
     try {
-      OutputStream fos = new FileOutputStream(result.getMethod().getMethodName());
+      OutputStream fos = new FileOutputStream(result.getMethod().getMethodName() + ".har");
       har.writeTo(fos);
+      fos.flush();
     } catch (IOException e) {
       e.printStackTrace();
     }

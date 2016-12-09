@@ -31,8 +31,9 @@ public class SeleniumDriverObjImpl implements SeleniumDriverObj {
   private void getBrowerSpecificDriver(final String browserName, final Boolean checkCodes) {
     DriverType driverType = null;
     try {
-      driverType = DriverType.valueOf(browserName);
+      driverType = DriverType.valueOf(browserName.toUpperCase());
     } catch (IllegalArgumentException ignored) {
+      logger.error(ignored.getMessage());
       System.err.println("Unknown driver specified, defaulting to '" + browserName + "'...");
     }
     driver = driverType.getWebDriverObject(
