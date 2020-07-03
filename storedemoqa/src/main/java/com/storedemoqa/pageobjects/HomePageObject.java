@@ -7,8 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
-import ru.yandex.qatools.allure.annotations.Step;
-
 public class HomePageObject extends PageFooter {
 	@FindBy(xpath = ".//a[text()='My Account']")
 	public WebElement myAccount;
@@ -33,7 +31,6 @@ public class HomePageObject extends PageFooter {
 		PageFactory.initElements(driver, this);
 	}
 
-	@Step("Click on my Account")
 	public YourAccountPageObject clickMyAccount() {
 		Reporter.log("Click on my Account");
 		YourAccountPageObject yourAccountPageObject = new YourAccountPageObject();

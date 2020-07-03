@@ -7,8 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
 
-import ru.yandex.qatools.allure.annotations.Step;
-
 public class YourAccountPageObject extends PageFooter {
 	@FindBy(xpath = ".//*[@id='meta']/ul/li[1]/a")
 	public WebElement registerLink;
@@ -31,7 +29,6 @@ public class YourAccountPageObject extends PageFooter {
 		PageFactory.initElements(driver, this);
 	}
 
-	@Step("Verify My account page is loaded")
 	public void verifyPageLoaded() {
 		wait.until(ExpectedConditions.visibilityOf(registerLink));
 		wait.until(ExpectedConditions.visibilityOf(loginputText));

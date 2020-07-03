@@ -4,10 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public interface DriverSetup {
-  public WebDriver getWebDriverObject(DesiredCapabilities desiredCapabilities);
+	public WebDriver getWebDriverObject(DesiredCapabilities desiredCapabilities);
 
-  public DesiredCapabilities getDesiredCapabilities();
-
-  public DesiredCapabilities addResponseCodeChecks(DesiredCapabilities capabilities,
-      boolean isCheckRequestcode);
+	public DesiredCapabilities getDesiredCapabilities();
 }
