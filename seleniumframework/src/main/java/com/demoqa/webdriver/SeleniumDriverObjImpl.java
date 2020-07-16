@@ -14,11 +14,11 @@ public class SeleniumDriverObjImpl implements SeleniumDriverObj {
 	private static Logger logger = Logger.getLogger(SeleniumDriverObjImpl.class);
 
 	@Override
-	public WebDriver getDriver(final String browserName, final Boolean checkCodes) {
+	public WebDriver getDriver(final String browserName) {
 		if (!(browserName.equalsIgnoreCase("Random"))) {
-			getBrowerSpecificDriver(browserName, checkCodes);
+			getBrowerSpecificDriver(browserName);
 		} else {
-			getBrowerSpecificDriver(DriverType.getRandomBrowser().name(), checkCodes);
+			getBrowerSpecificDriver(DriverType.getRandomBrowser().name());
 		}
 		driver.manage().window().maximize();
 		this.eventFiringWebDriver = new EventFiringWebDriver(driver);
@@ -28,7 +28,7 @@ public class SeleniumDriverObjImpl implements SeleniumDriverObj {
 		return driver;
 	}
 
-	private void getBrowerSpecificDriver(final String browserName, final Boolean checkCodes) {
+	private void getBrowerSpecificDriver(final String browserName) {
 		DriverType driverType = null;
 		try {
 			driverType = DriverType.valueOf(browserName.toUpperCase());

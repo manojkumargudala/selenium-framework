@@ -1,7 +1,5 @@
 package com.demoqa.utils;
 
-import java.io.File;
-
 import org.apache.log4j.Logger;
 
 public class FilePathUtils {
@@ -26,21 +24,6 @@ public class FilePathUtils {
 		stringTotalName.append("/" + fileName);
 		return stringTotalName.toString();
 
-	}
-
-	public static String getScreenCastFolderPath(final String folderName) {
-		StringBuffer stringTotalName = new StringBuffer();
-		stringTotalName.append(System.getProperty("user.dir"));
-		stringTotalName.append(File.separator);
-		stringTotalName.append(GenericConstants.SCREEN_CAST);
-		stringTotalName.append(File.separator);
-		stringTotalName.append(folderName);
-		return stringTotalName.toString();
-
-	}
-
-	public static void main(final String[] args) {
-		System.out.println("main method " + FilePathUtils.getFullPathOfFileFromClassPath("chromedriver"));
 	}
 
 }

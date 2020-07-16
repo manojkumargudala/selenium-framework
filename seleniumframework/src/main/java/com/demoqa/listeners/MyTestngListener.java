@@ -1,9 +1,5 @@
 package com.demoqa.listeners;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.mail.EmailException;
 import org.apache.log4j.Logger;
 import org.testng.IInvokedMethod;
 import org.testng.IInvokedMethodListener;
@@ -14,8 +10,6 @@ import org.testng.ITestListener;
 import org.testng.ITestNGMethod;
 import org.testng.ITestResult;
 import org.testng.Reporter;
-
-import com.demoqa.utils.SendEmail;
 
 public class MyTestngListener implements ITestListener, ISuiteListener, IInvokedMethodListener {
 
@@ -33,17 +27,17 @@ public class MyTestngListener implements ITestListener, ISuiteListener, IInvoked
 
 	@Override
 	public void onFinish(final ISuite iSuite) {
-		Reporter.log("About to end executing Suite " + iSuite.getName(), true);
-		String filePath = File.separator + "target" + File.separator + "surefire-reports" + File.separator
-				+ "emailable-report.html";
-		if (!(new File(filePath)).exists()) {
-			filePath = File.separator + "test-output" + File.separator + "emailable-report.html";
-		}
-		try {
-			SendEmail.sendEmailThis(filePath, iSuite.getName());
-		} catch (IOException | EmailException e) {
-			e.printStackTrace();
-		}
+//		Reporter.log("About to end executing Suite " + iSuite.getName(), true);
+//		String filePath = File.separator + "target" + File.separator + "surefire-reports" + File.separator
+//				+ "emailable-report.html";
+//		if (!(new File(filePath)).exists()) {
+//			filePath = File.separator + "test-output" + File.separator + "emailable-report.html";
+//		}
+//		try {
+//			//SendEmail.sendEmailThis(filePath, iSuite.getName());
+//		} catch (IOException | EmailException e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	// This belongs to ITestListener and will execute before starting of Test

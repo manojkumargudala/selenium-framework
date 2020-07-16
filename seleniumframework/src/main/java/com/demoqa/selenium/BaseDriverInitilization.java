@@ -28,8 +28,8 @@ public class BaseDriverInitilization {
 	public void myBaseDriverInitilization() {
 		ReadPropertyData readProp = new ReadPropertyDataImpl(GenericConstants.STORE_DEMO_PROP_FILE_NAME);
 		SeleniumDriverObj selObj = new SeleniumDriverObjImpl();
-		WebDriver driver = selObj.getDriver(readProp.readProperty("browser"), readProp.isCodeChecksEnabled());
-		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(20))
+		WebDriver driver = selObj.getDriver(readProp.readProperty("browser"));
+		Wait<WebDriver> wait = new FluentWait<WebDriver>(driver).withTimeout(Duration.ofSeconds(3))
 				.pollingEvery(Duration.ofSeconds(1)).ignoring(NoSuchElementException.class)
 				.ignoring(StaleElementReferenceException.class);
 		BaseFrameWorkInitializer.getInstance().setDriver(driver);
@@ -49,6 +49,7 @@ public class BaseDriverInitilization {
 
 	private void takeScreenShotOnFailure(final ITestResult result, final WebDriver driver) {
 		if (ITestResult.FAILURE == result.getStatus()) {
+
 			String screenshotName = DataUtils.getRandomCaptureFileName(result.getName());
 			result.setAttribute(GenericConstants.SCREEN_SHOT_REPORTER_ATTRIBUTE, screenshotName);
 			screenshotName = "./" + screenshotName;
