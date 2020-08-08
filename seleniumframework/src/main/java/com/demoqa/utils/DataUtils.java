@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class DataUtils {
 	public static String getRandomNumber() {
-		SimpleDateFormat ft = new SimpleDateFormat("yyyyMMddhhmmssSS");
+		SimpleDateFormat ft = new SimpleDateFormat("yyyy_MM_dd_hh_mm_ss_SS");
 		return ft.format(new Date());
 	}
 
