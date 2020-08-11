@@ -3,8 +3,9 @@ package com.storedemoqa.pageobjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
+
+import com.demoqa.selenium.MyExpectedConditions;
 
 public class RegisterationPageObject extends PageFooter {
 
@@ -23,9 +24,9 @@ public class RegisterationPageObject extends PageFooter {
 
 	public void verifyPageLoaded() {
 		Reporter.log("Navigated to registration page");
-		wait.until(ExpectedConditions.visibilityOf(userLogin));
-		wait.until(ExpectedConditions.visibilityOf(userEmail));
-		wait.until(ExpectedConditions.visibilityOf(linkTest));
-		wait.until(ExpectedConditions.visibilityOf(partialLinkTextRegister));
+		wait.until(MyExpectedConditions.visibilityOf(userLogin));
+		wait.until(MyExpectedConditions.visibilityOf(userEmail));
+		wait.until(MyExpectedConditions.visibilityOf(linkTest));
+		wait.until(MyExpectedConditions.visibilityOf(partialLinkTextRegister));
 	}
 }

@@ -4,8 +4,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
+
+import com.demoqa.selenium.MyExpectedConditions;
 
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -37,24 +38,24 @@ public class HomePageObject extends PageFooter {
 	public YourAccountPageObject clickMyAccount() {
 		Reporter.log("Click on my Account");
 		YourAccountPageObject yourAccountPageObject = new YourAccountPageObject();
-		wait.until(ExpectedConditions.elementToBeClickable(myAccount));
+		wait.until(MyExpectedConditions.elementToBeClickable(myAccount));
 		myAccount.click();
 		return yourAccountPageObject;
 	}
 
 	public ProductCaterogyPageObject gotToProductCategory() {
 		ProductCaterogyPageObject productCaterogyPageObject = new ProductCaterogyPageObject();
-		wait.until(ExpectedConditions.visibilityOf(productCatergoy));
+		wait.until(MyExpectedConditions.visibilityOf(productCatergoy));
 		productCatergoy.click();
 		return productCaterogyPageObject;
 	}
 
 	public ImacsCaterogyPageObject goToImacsCategory() {
 		ImacsCaterogyPageObject imacsCatergoryPageObject = new ImacsCaterogyPageObject();
-		wait.until(ExpectedConditions.visibilityOf(productCatergoy));
+		wait.until(MyExpectedConditions.visibilityOf(productCatergoy));
 		Actions action = new Actions(driver);
 		action.moveToElement(productCatergoy).perform();
-		wait.until(ExpectedConditions.visibilityOf(imacsCategory));
+		wait.until(MyExpectedConditions.visibilityOf(imacsCategory));
 		imacsCategory.click();
 		return imacsCatergoryPageObject;
 	}
@@ -62,9 +63,9 @@ public class HomePageObject extends PageFooter {
 	public IPadsCaterogyPageObject goToIPadsCategory() {
 		IPadsCaterogyPageObject iPadsCatergoryPageObject = new IPadsCaterogyPageObject();
 		Actions action = new Actions(driver);
-		wait.until(ExpectedConditions.visibilityOf(productCatergoy));
+		wait.until(MyExpectedConditions.visibilityOf(productCatergoy));
 		action.moveToElement(productCatergoy).perform();
-		wait.until(ExpectedConditions.visibilityOf(iPadsCategory));
+		wait.until(MyExpectedConditions.visibilityOf(iPadsCategory));
 		iPadsCategory.click();
 		return iPadsCatergoryPageObject;
 	}
@@ -72,9 +73,9 @@ public class HomePageObject extends PageFooter {
 	public IPodsCaterogyPageObject goToIPodsCategory() {
 		IPodsCaterogyPageObject iPodsCatergoryPageObject = new IPodsCaterogyPageObject();
 		Actions action = new Actions(driver);
-		wait.until(ExpectedConditions.visibilityOf(productCatergoy));
+		wait.until(MyExpectedConditions.visibilityOf(productCatergoy));
 		action.moveToElement(productCatergoy).perform();
-		wait.until(ExpectedConditions.visibilityOf(iPodsCategory));
+		wait.until(MyExpectedConditions.visibilityOf(iPodsCategory));
 		iPodsCategory.click();
 		return iPodsCatergoryPageObject;
 	}
@@ -82,24 +83,24 @@ public class HomePageObject extends PageFooter {
 	public IPhonesCaterogyPageObject goToIPhonesCategory() {
 		IPhonesCaterogyPageObject iPhonesCatergoryPageObject = new IPhonesCaterogyPageObject();
 		Actions action = new Actions(driver);
-		wait.until(ExpectedConditions.visibilityOf(productCatergoy));
+		wait.until(MyExpectedConditions.visibilityOf(productCatergoy));
 		action.moveToElement(productCatergoy).perform();
-		wait.until(ExpectedConditions.visibilityOf(iPhonesCategory));
+		wait.until(MyExpectedConditions.visibilityOf(iPhonesCategory));
 		iPhonesCategory.click();
 		return iPhonesCatergoryPageObject;
 	}
 
 	public CheckOutPageObject goToCheckOutPage() {
 		CheckOutPageObject checkOutPageObject = new CheckOutPageObject();
-		wait.until(ExpectedConditions.visibilityOf(checkoutFromHome));
+		wait.until(MyExpectedConditions.visibilityOf(checkoutFromHome));
 		checkoutFromHome.click();
 		return checkOutPageObject;
 	}
 
 	public void verifyPageLoaded() {
-		// wait.until(ExpectedConditions.visibilityOf(productCatergoy));
-		wait.until(ExpectedConditions.visibilityOf(allProductsPage));
-		wait.until(ExpectedConditions.visibilityOf(slideMenu));
+		// wait.until(MyExpectedConditions.visibilityOf(productCatergoy));
+		wait.until(MyExpectedConditions.visibilityOf(allProductsPage));
+		wait.until(MyExpectedConditions.visibilityOf(slideMenu));
 
 	}
 }

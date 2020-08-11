@@ -4,8 +4,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Reporter;
+
+import com.demoqa.selenium.MyExpectedConditions;
 
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -33,10 +34,10 @@ public class YourAccountPageObject extends PageFooter {
 
 	@Step("Verify My account page is loaded")
 	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(registerLink));
-		wait.until(ExpectedConditions.visibilityOf(loginputText));
-		wait.until(ExpectedConditions.visibilityOf(pwdinputText));
-		wait.until(ExpectedConditions.visibilityOf(loginButton));
+		wait.until(MyExpectedConditions.visibilityOf(registerLink));
+		wait.until(MyExpectedConditions.visibilityOf(loginputText));
+		wait.until(MyExpectedConditions.visibilityOf(pwdinputText));
+		wait.until(MyExpectedConditions.visibilityOf(loginButton));
 	}
 
 	public RegisterationPageObject clickRegisterLink() {
@@ -52,12 +53,12 @@ public class YourAccountPageObject extends PageFooter {
 		loginputText.sendKeys(userName);
 		pwdinputText.sendKeys(password);
 		pwdinputText.sendKeys(Keys.TAB);
-		wait.until(ExpectedConditions.elementToBeClickable(loginButton));
+		wait.until(MyExpectedConditions.elementToBeClickable(loginButton));
 		loginButton.click();
 		System.out.println("user login after click ");
 
 		if (!(isValidUser)) {
-			wait.until(ExpectedConditions.visibilityOf(invalidCredentials));
+			wait.until(MyExpectedConditions.visibilityOf(invalidCredentials));
 		}
 		return userLoginHomePage;
 	}

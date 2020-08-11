@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.demoqa.qa.automation</groupId>
@@ -8,7 +9,8 @@
 	<properties>
 		<allure.version>1.4.16</allure.version>
 		<aspectj.version>1.8.5</aspectj.version>
-		<selenium.version>3.0.1</selenium.version>
+		<selenium.version>4.0.0-alpha-6</selenium.version>
+		<apache.poi>4.1.2</apache.poi>
 		<overwrite.binaries>false</overwrite.binaries>
 	</properties>
 	<dependencies>
@@ -20,22 +22,22 @@
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
-			<version>6.9.10</version>
+			<version>7.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.13</version>
+			<version>${apache.poi}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.13</version>
+			<version>${apache.poi}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>3.13</version>
+			<version>${apache.poi}</version>
 		</dependency>
 		<dependency>
 			<groupId>ru.yandex.qatools.ashot</groupId>
@@ -43,9 +45,9 @@
 			<version>1.4.12</version>
 		</dependency>
 		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.12.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.relevantcodes</groupId>
@@ -77,6 +79,12 @@
 			<groupId>net.lightbody.bmp</groupId>
 			<artifactId>browsermob-core</artifactId>
 			<version>2.1.2</version>
+			<exclusions>
+				<exclusion>  <!-- declare the exclusion here -->
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 	</dependencies>
 	<build>
@@ -92,7 +100,7 @@
 			<plugin>
 				<groupId>com.lazerycode.selenium</groupId>
 				<artifactId>driver-binary-downloader-maven-plugin</artifactId>
-				<version>1.0.11</version>
+				<version>1.0.18</version>
 				<configuration>
 					<rootStandaloneServerDirectory>${project.basedir}/src/test/resources/binaries</rootStandaloneServerDirectory>
 					<downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips</downloadedZipFileDirectory>
@@ -131,12 +139,16 @@
 						</goals>
 						<configuration>
 							<target name="copy binaries files to jar">
-								<copy file="${webdriver.chrome.driver}" tofile="${basedir}/src/main/resources/chromedriver.exe" />
-								<copy file="${phantomjs.binary.path}" tofile="${basedir}/src/main/resources/phantomjs.exe" />
-								<copy file="${webdriver.opera.driver}" tofile="${basedir}/src/main/resources/operadriver.exe" />
+								<copy file="${webdriver.chrome.driver}"
+									tofile="${basedir}/src/main/resources/chromedriver.exe" />
+								<copy file="${phantomjs.binary.path}"
+									tofile="${basedir}/src/main/resources/phantomjs.exe" />
+								<copy file="${webdriver.opera.driver}"
+									tofile="${basedir}/src/main/resources/operadriver.exe" />
 								<copy file="${webdriver.ie.driver}"
 									tofile="${basedir}/src/main/resources/IEDriverServer.exe" />
-								<copy file="${webdriver.gecko.driver}" tofile="${basedir}/src/main/resources/geckodriver.exe" />
+								<copy file="${webdriver.gecko.driver}"
+									tofile="${basedir}/src/main/resources/geckodriver.exe" />
 							</target>
 						</configuration>
 					</execution>

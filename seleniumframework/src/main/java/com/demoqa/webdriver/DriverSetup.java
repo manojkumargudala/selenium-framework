@@ -1,13 +1,10 @@
 package com.demoqa.webdriver;
 
+import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 public interface DriverSetup {
-  public WebDriver getWebDriverObject(DesiredCapabilities desiredCapabilities);
+	public WebDriver getWebDriverObject(Proxy proxy);
 
-  public DesiredCapabilities getDesiredCapabilities();
-
-  public DesiredCapabilities addResponseCodeChecks(DesiredCapabilities capabilities,
-      boolean isCheckRequestcode);
+	public Proxy addResponseCodeChecks(boolean isCheckRequestcode);
 }

@@ -3,7 +3,8 @@ package com.storedemoqa.pageobjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import com.demoqa.selenium.MyExpectedConditions;
 
 public class LoggedOutPageObject extends PageFooter {
 
@@ -15,7 +16,7 @@ public class LoggedOutPageObject extends PageFooter {
 	}
 
 	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(loggedOutText));
+		wait.until(MyExpectedConditions.visibilityOf(loggedOutText));
 
 	}
 }

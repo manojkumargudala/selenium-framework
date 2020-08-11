@@ -3,7 +3,8 @@ package com.storedemoqa.pageobjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import com.demoqa.selenium.MyExpectedConditions;
 
 public class ImacsCaterogyPageObject extends PageFooter {
 
@@ -22,15 +23,15 @@ public class ImacsCaterogyPageObject extends PageFooter {
 	WebElement iMacs;
 
 	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(iMacs));
-		wait.until(ExpectedConditions.visibilityOf(addToCard));
+		wait.until(MyExpectedConditions.visibilityOf(iMacs));
+		wait.until(MyExpectedConditions.visibilityOf(addToCard));
 
 	}
 
 	public CheckOutPageObject goToCheckOutPage() {
 		CheckOutPageObject checkoutPageObject = new CheckOutPageObject();
 		addToCard.click();
-		wait.until(ExpectedConditions.visibilityOf(goToCheckoutCart));
+		wait.until(MyExpectedConditions.visibilityOf(goToCheckoutCart));
 		goToCheckoutCart.click();
 		return checkoutPageObject;
 	}

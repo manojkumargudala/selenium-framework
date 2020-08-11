@@ -3,7 +3,8 @@ package com.storedemoqa.pageobjects;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import com.demoqa.selenium.MyExpectedConditions;
 
 public class IPadsCaterogyPageObject extends PageFooter {
 
@@ -21,8 +22,8 @@ public class IPadsCaterogyPageObject extends PageFooter {
 	WebElement iPads;
 
 	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(iPads));
-		wait.until(ExpectedConditions.visibilityOf(addToCard));
+		wait.until(MyExpectedConditions.visibilityOf(iPads));
+		wait.until(MyExpectedConditions.visibilityOf(addToCard));
 
 	}
 

@@ -4,7 +4,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+
+import com.demoqa.selenium.MyExpectedConditions;
 
 public class UserLoginHomePage extends PageFooter {
 	@FindBy(xpath = ".//a[text()='Log out']")
@@ -32,41 +33,41 @@ public class UserLoginHomePage extends PageFooter {
 	}
 
 	public void verifyPageLoaded() {
-		wait.until(ExpectedConditions.visibilityOf(logOut));
-		wait.until(ExpectedConditions.visibilityOf(purchaseHistory));
+		wait.until(MyExpectedConditions.visibilityOf(logOut));
+		wait.until(MyExpectedConditions.visibilityOf(purchaseHistory));
 
 	}
 
 	public LoggedOutPageObject logout() {
 		LoggedOutPageObject loggedOutPageObject = new LoggedOutPageObject();
-		wait.until(ExpectedConditions.visibilityOf(logOut));
+		wait.until(MyExpectedConditions.visibilityOf(logOut));
 		logOut.click();
 		return loggedOutPageObject;
 	}
 
 	public void verifyPurchaseHistory() {
-		wait.until(ExpectedConditions.visibilityOf(purchaseHistory));
+		wait.until(MyExpectedConditions.visibilityOf(purchaseHistory));
 		purchaseHistory.click();
 	}
 
 	public void verifyYourDetailsTab() {
-		wait.until(ExpectedConditions.visibilityOf(yourDetails));
+		wait.until(MyExpectedConditions.visibilityOf(yourDetails));
 		yourDetails.click();
-		wait.until(ExpectedConditions.visibilityOf(firstName));
-		wait.until(ExpectedConditions.visibilityOf(lastName));
+		wait.until(MyExpectedConditions.visibilityOf(firstName));
+		wait.until(MyExpectedConditions.visibilityOf(lastName));
 	}
 
 	public void verifyYourDownloadsTab() {
-		wait.until(ExpectedConditions.visibilityOf(yourDownloads));
+		wait.until(MyExpectedConditions.visibilityOf(yourDownloads));
 		yourDownloads.click();
 	}
 
 	public LoggedOutPageObject verifyLogoutFromPopUp() {
 		LoggedOutPageObject loggedOutPageObject = new LoggedOutPageObject();
-		wait.until(ExpectedConditions.visibilityOf(howdyLink));
+		wait.until(MyExpectedConditions.visibilityOf(howdyLink));
 		Actions action = new Actions(driver);
 		action.moveToElement(howdyLink).perform();
-		wait.until(ExpectedConditions.visibilityOf(logoutFromPopUp));
+		wait.until(MyExpectedConditions.visibilityOf(logoutFromPopUp));
 		logoutFromPopUp.click();
 		return loggedOutPageObject;
 	}
