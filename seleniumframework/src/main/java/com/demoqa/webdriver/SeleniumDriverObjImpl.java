@@ -25,7 +25,7 @@ public class SeleniumDriverObjImpl implements SeleniumDriverObj {
 		MyWebDriverListerner handler = new MyWebDriverListerner();
 		eventFiringWebDriver.register(handler);
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-		return driver;
+		return eventFiringWebDriver;
 	}
 
 	private void getBrowerSpecificDriver(final String browserName) {

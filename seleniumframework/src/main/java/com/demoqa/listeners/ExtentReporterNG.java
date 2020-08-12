@@ -97,8 +97,6 @@ public class ExtentReporterNG implements IReporter {
 		}
 
 		extent.flush();
-		ZipAndSendMail zipAndSendMail = new ZipAndSendMail();
-		zipAndSendMail.sendEmail(readprop.getResultsFolderPath());
 
 	}
 
