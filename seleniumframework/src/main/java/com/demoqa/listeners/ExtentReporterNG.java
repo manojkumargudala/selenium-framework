@@ -40,6 +40,7 @@ public class ExtentReporterNG implements IReporter {
 	@Override
 	public void generateReport(final List<XmlSuite> xmlSuites, final List<ISuite> suites,
 			final String outputDirectory) {
+		System.out.println("Generating the report ");
 		ReadPropertyData readprop = new ReadPropertyDataImpl(GenericConstants.STORE_DEMO_PROP_FILE_NAME);
 		this.resultPath = System.getProperty("user.dir") + File.separator + readprop.getResultsFolderPath();
 		String source = System.getProperty("user.dir") + File.separator + GenericConstants.SCREEN_SHOT_FOLDER;
@@ -133,7 +134,11 @@ public class ExtentReporterNG implements IReporter {
 		test.getModel().setEndTime(getTime(result.getEndMillis()));
 		for (String str : Reporter.getOutput(result)) {
 			logger.debug(str);
-			log(Status.INFO, str, test);
+			if (str.startsWith("TakingScreenShotFilename") && str.split("\\s+").length > 1) {
+				addScreenShot(test, str.split("\\s+")[1]);
+			} else {
+				log(Status.INFO, str, test);
+			}
 		}
 		for (String group : result.getMethod().getGroups())
 			test.assignCategory(group);
@@ -149,11 +154,7 @@ public class ExtentReporterNG implements IReporter {
 		logger.debug("the screen shot file name is " + screenShotFileName);
 		System.out.println("the screen shot file name is " + screenShotFileName);
 
-		try {
-			addScreenShot(test, screenShotFileName, getTime(result.getEndMillis()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		addScreenShot(test, screenShotFileName, getTime(result.getEndMillis()));
 	}
 
 	private void log(Status st, String logStirng, ExtentTest test) {
@@ -174,11 +175,26 @@ public class ExtentReporterNG implements IReporter {
 			return new Date();
 	}
 
-	private void addScreenShot(final ExtentTest test, final String screenShotFileName, Date date) throws IOException {
+	private void addScreenShot(final ExtentTest test, final String screenShotFileName, Date date) {
 		if (screenShotFileName != null) {
-			test.log(Status.INFO, "Testcase Failed",
-					MediaEntityBuilder.createScreenCaptureFromPath(screenShotFileName).build());
+			try {
+				test.log(Status.INFO, "Testcase Failed",
+						MediaEntityBuilder.createScreenCaptureFromPath(screenShotFileName).build());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			test.getModel().getLogContext().getLast().setTimestamp(date);
+		}
+	}
+
+	private void addScreenShot(final ExtentTest test, final String screenShotFileName) {
+		if (screenShotFileName != null) {
+			try {
+				test.log(Status.INFO, "Screen Shot Step",
+						MediaEntityBuilder.createScreenCaptureFromPath(screenShotFileName).build());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 

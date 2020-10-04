@@ -11,7 +11,6 @@ import org.testng.ITestResult;
 import org.testng.Reporter;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
 
 import com.demoqa.utils.BaseFrameWorkInitializer;
 import com.demoqa.utils.DataUtils;
@@ -21,7 +20,7 @@ import com.demoqa.utils.ReadPropertyDataImpl;
 import com.demoqa.webdriver.SeleniumDriverObj;
 import com.demoqa.webdriver.SeleniumDriverObjImpl;
 
-@Listeners(value = { com.demoqa.listeners.MyTestngListener.class, com.demoqa.listeners.ExtentReporterNG.class })
+//@Listeners(value = { com.demoqa.listeners.MyTestngListener.class, com.demoqa.listeners.ExtentReporterNG.class })
 public class BaseDriverInitilization {
 
 	@BeforeMethod

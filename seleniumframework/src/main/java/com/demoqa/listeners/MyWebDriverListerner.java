@@ -1,8 +1,11 @@
 package com.demoqa.listeners;
 
+import java.util.Arrays;
 import java.util.List;
 
+import org.apache.commons.text.StringEscapeUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,6 +14,7 @@ import org.testng.Reporter;
 
 import com.demoqa.selenium.SeleniumActions;
 import com.demoqa.utils.BaseFrameWorkInitializer;
+import com.demoqa.utils.DataUtils;
 
 public class MyWebDriverListerner implements WebDriverEventListener {
 
@@ -60,7 +64,10 @@ public class MyWebDriverListerner implements WebDriverEventListener {
 	public void beforeFindBy(final By arg0, final WebElement arg1, final WebDriver driver) {
 		if (BaseFrameWorkInitializer.getInstance().isRunInDebugMode()) {
 			System.out.println("Taking the screenshot");
-			SeleniumActions.captureScreenshot(driver, "fileName");
+			String screenshotName = DataUtils.getRandomCaptureFileName("debug_");
+			screenshotName = "./" + screenshotName;
+			SeleniumActions.captureScreenshot(driver, screenshotName);
+			Reporter.log("TakingScreenShotFilename " + screenshotName);
 		}
 	}
 
@@ -106,8 +113,17 @@ public class MyWebDriverListerner implements WebDriverEventListener {
 	}
 
 	@Override
-	public void afterChangeValueOf(final WebElement arg0, final WebDriver arg1, final CharSequence[] arg2) {
-		// TODO Auto-generated method stub
+	public void afterChangeValueOf(final WebElement webElement, final WebDriver arg1, final CharSequence[] arg2) {
+
+		try {
+			System.out.println("Testing "
+					+ StringEscapeUtils.unescapeJava(Arrays.toString(arg2).replace("[", "").replace("]", "")));
+			System.out.println("This is the sting " + Arrays.toString(arg2).replace("[", "").replace("]", ""));
+			System.out.println("test s " + Arrays.toString(arg2) + "Testse  "
+					+ Keys.valueOf(Arrays.toString(arg2).replace("[", "").replace("]", "")));
+		} catch (IllegalArgumentException e) {
+			Reporter.log("Entering value of " + Arrays.toString(arg2) + " to " + getElementName(webElement));
+		}
 
 	}
 
@@ -215,6 +231,8 @@ public class MyWebDriverListerner implements WebDriverEventListener {
 			return webElement.getAttribute("resource-id");
 		} else if (webElement.getAttribute("value") != null) {
 			return webElement.getAttribute("value");
+		} else if (webElement.getAttribute("placeholder") != null) {
+			return webElement.getAttribute("placeholder");
 		}
 
 		return null;

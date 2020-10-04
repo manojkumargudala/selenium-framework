@@ -1,5 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="store-demo-qa-other-test" parallel="tests" verbose="1">
+<suite name="store-demo-qa-other-test" parallel="classes"
+	verbose="1">
 	<listeners>
 		<listener class-name="com.demoqa.listeners.MyTestngListener" />
 		<listener class-name="com.demoqa.listeners.ExtentReporterNG"></listener>
@@ -8,15 +9,8 @@
 	<test name="Test login in store-demo-qa-other-test">
 		<!-- <parameter name="browser" value="Firefox" /> -->
 		<classes>
-			<class name="com.storedemoqa.testcases.BaseTestCase">
-			</class>
-		</classes>
-	</test>
-	<test name="Test login Another test in store-demo-qa-other-test">
-		<!-- <parameter name="browser" value="Firefox" /> -->
-		<classes>
-			<class name="com.storedemoqa.testcases.BaseTestCase">
-			</class>
+			<class name="com.jarvis.testcases.SignUpTestCase" />
+			<class name="com.jarvis.testcases.SignUpTestCase2" />
 		</classes>
 	</test>
 </suite>

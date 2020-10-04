@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 import com.demoqa.selenium.BaseDriverInitilization;
 import com.jarvis.pageobjects.SignUpPageObject;
 
-public class SignUpTestCase extends BaseDriverInitilization {
+public class SignUpTestCase2 extends BaseDriverInitilization {
 	SignUpPageObject signUpPageObject;
 
 	@BeforeMethod
