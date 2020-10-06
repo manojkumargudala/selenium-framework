@@ -60,7 +60,7 @@ public class ExtentReporterNG implements IReporter {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-
+		System.out.println(file.getAbsolutePath());
 		ExtentSparkReporter mainExtent = new ExtentSparkReporter(file);
 		extent.attachReporter(mainExtent);
 

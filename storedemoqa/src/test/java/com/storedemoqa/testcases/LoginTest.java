@@ -10,9 +10,6 @@ import com.demoqa.exceldtos.EmployeeLogin;
 import com.demoqa.selenium.BaseDriverInitilization;
 import com.demoqa.testngdataprovider.ExcelReadDataProvider;
 import com.storedemoqa.pageobjects.HomePageObject;
-import com.storedemoqa.pageobjects.LoggedOutPageObject;
-import com.storedemoqa.pageobjects.UserLoginHomePage;
-import com.storedemoqa.pageobjects.YourAccountPageObject;
 
 public class LoginTest extends BaseDriverInitilization {
 	HomePageObject homePageObject;
@@ -30,35 +27,16 @@ public class LoginTest extends BaseDriverInitilization {
 		System.out.println(emp.getEmployeeLogin());
 		System.out.println("***********************");
 		loadBaseUrl();
-		YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
-		yourAccountPage.verifyPageLoaded();
-		UserLoginHomePage userLoginHome = yourAccountPage.login(emp.getEmployeeLogin(), emp.getEmployeedPassword(),
-				emp.getIsValidUser());
-		if (emp.getIsValidUser()) {
-			userLoginHome.verifyPageLoaded();
-			LoggedOutPageObject loggedOutPageObject = userLoginHome.logout();
-			loggedOutPageObject.verifyPageLoaded();
-		}
-	}
-
-	// Test Case 7
-	@Test(dataProvider = "data-source", enabled = false)
-	public void loggedFromPopMenu(final EmployeeLogin emp) {
-		System.out.println("in side the test case");
-		System.out.println(emp.getEmployeedPassword());
-		System.out.println(emp.getEmployeeLogin());
-		System.out.println("***********************");
-		// Ctrl+shift+C
-		loadBaseUrl();
-		YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
-		yourAccountPage.verifyPageLoaded();
-		UserLoginHomePage userLoginHome = yourAccountPage.login(emp.getEmployeeLogin(), emp.getEmployeedPassword(),
-				emp.getIsValidUser());
-		if (emp.getIsValidUser()) {
-			userLoginHome.verifyPageLoaded();
-			LoggedOutPageObject loggedOutPageObject = userLoginHome.verifyLogoutFromPopUp();
-			loggedOutPageObject.verifyPageLoaded();
-		}
+		// YourAccountPageObject yourAccountPage = homePageObject.clickMyAccount();
+		// yourAccountPage.verifyPageLoaded();
+		// UserLoginHomePage userLoginHome =
+		// yourAccountPage.login(emp.getEmployeeLogin(), emp.getEmployeedPassword(),
+		// emp.getIsValidUser());
+		// if (emp.getIsValidUser()) {
+		// userLoginHome.verifyPageLoaded();
+		// LoggedOutPageObject loggedOutPageObject = userLoginHome.logout();
+		// loggedOutPageObject.verifyPageLoaded();
+		// }
 	}
 
 	// Lazy initialization of the data provide of excel data
